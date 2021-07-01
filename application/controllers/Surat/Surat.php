@@ -13,6 +13,7 @@ class Surat extends CI_Controller {
         $data['no_surat']= $this->MyModel->get_no_surat();
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
         $data['bagian'] = $this->db->get('tbl_bagian')->result_array();
+        $data['jns_biaya'] = $this->db->get('jns_biaya')->result_array();
         $data['title'] = 'Surat Pemasukan & Pengeluaran';
         $data['surat'] = $this->MyModel->get_surat();
         $this->load->view('Template/Header_v.php',$data);
@@ -22,7 +23,7 @@ class Surat extends CI_Controller {
 
     public function addSurat(){
         $no_surat = $this->input->post('no_surat');
-        $jns_surat = $this->input->post('jns_surat');
+        $jns_biaya = $this->input->post('jns_biaya');
         $msk_klr = $this->input->post('msk_klr');
         $kepada = $this->input->post('kepada');
         $pos = $this->input->post('pos');
@@ -33,14 +34,16 @@ class Surat extends CI_Controller {
 
         $data = [
             'no_surat' => $no_surat,
-            'jns_surat' => $jns_surat,
+            'jns_biaya' => $jns_biaya,
             'masuk_keluar' => $msk_klr,
             'kepada' => $kepada,
             'pos_anggaran' => $pos,
             'cara_pembayaran' => $cr_pem,
             'nominal' => $nominal,
             'terbilang' => $terbilang,
-            'uraian' => $uraian
+            'uraian' => $uraian,
+            'date' => time(),
+            'status' => 'pending'
         ];
 
         $this->db->insert('tbl_surat', $data);
