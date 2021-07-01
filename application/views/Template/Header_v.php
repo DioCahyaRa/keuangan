@@ -12,20 +12,10 @@
         content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title><?= $title?></title>
-
-    <!-- <link rel="canonical" href="https://www.wrappixel.com/templates/xtreme-admin-lite/" /> -->
-
-    <!-- Favicon icon -->
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png"> -->
-
+    
     <!-- Custom CSS -->
     <link href="<?= base_url('Assets/dashboard/');?>/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+   
 
     <!-- DataTables -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('Assets/')?>datatables/datatables.min.css"/>
@@ -33,6 +23,9 @@
     <!-- Sweetalert CDN-->
 	<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href="<?= base_url('Assets/fontawesome-free-5.15.3-web/')?>css/all.css" rel="stylesheet"> <!--load all styles -->
+
 </head>
 
 <body>
@@ -142,6 +135,10 @@
                         
                         <hr class="border border-primary m-3">
                         <span class="ml-3">Master</span>
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Jenis Biaya"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Master/Jenis_biaya')?>"><i class="fas fa-file-invoice-dollar"></i><span
+                                    class="hide-menu">Jenis Biaya</span></a></li>
+
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Jenis Transaksi"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Master/Jenis_transaksi')?>"><i class="mdi mdi-clipboard-text"></i><span
                                     class="hide-menu">Jenis Transaksi</span></a></li>
