@@ -68,7 +68,7 @@
                                             <td><?= $row['pos_anggaran'];?></td>
                                             <td><?= $row['date'];?></td>
                                             <td>            
-                                                <button data-toggle="modal" data-target="#editModal<?=$row['id'];?>" class="btn btn-warning mr-2"><i class="mdi mdi-details"></i> Detail </button>
+                                                <button data-toggle="modal" data-target="#detail<?=$row['id'];?>" class="btn btn-warning mr-2"><i class="mdi mdi-details"></i> Detail </button>
                                                 <button data-toggle="modal" data-target="#deleteModal<?=$row['id'];?>" class="btn btn-danger"><i class="mdi mdi-delete-circle"></i> Delete</button>
                                             </td>
                                         </tr>
@@ -144,7 +144,12 @@
 
           <div class="form-group">
             <label class="col-form-label">Kepada :</label>
-            <input type="text" name="kepada" class="form-control" required>
+            <select class="form-control" name="kepada" id="msk_klr" required>
+              <option value="" selected disabled >- Pilih Kepada -</option>
+            <?php foreach($bagian as $bg):?>
+              <option value="<?= "(".$bg['bagian'].")"." ".$bg['nama'];?>"><?= "(".$bg['bagian'].")"." ".$bg['nama'];?></option>
+            <?php endforeach;?>
+					  </select>
           </div>
 
           <div class="form-group">
@@ -195,8 +200,8 @@
     $no = 1;
     foreach ($surat as $row): $no++;
   ?>
-    <!-- Modal Edit -->
-    <div class="modal fade" id="editModal<?=$row['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal detail -->
+    <div class="modal fade" id="detail<?=$row['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -206,23 +211,48 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('Master/Surat/editSurat')?>" method="post">
+        <form action="<?= base_url('Master/Surat')?>" method="post">
 
         <input type="hidden" name="id" class="form-control" value="<?= $row['id'];?>">
         
           <div class="form-group">
-            <label class="col-form-label">Bagian :</label>
-            <input type="text" name="bagian" class="form-control" value="" required>
+            <label class="col-form-label">No surat :</label>
+            <input type="text" name="no_surat" class="form-control" value="<?= $row['no_surat']?>" readonly>
           </div>
 
           <div class="form-group">
-            <label class="col-form-label">Nama :</label>
-            <input type="text" name="nama" class="form-control" value="" required>
+            <label class="col-form-label">Jenis Surat :</label>
+            <input type="text" name="jns_surat" class="form-control" value="<?= $row['jns_surat']?>" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Keterangan Masuk / Keluar :</label>
+            <input type="text" name="masuk_keluar" class="form-control" value="<?= $row['masuk_keluar']?>" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Pos Anggaran</label>
+            <input type="text" name="pos" class="form-control" value="<?= $row['pos_anggaran']?>" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Cara Pembayaran</label>
+            <input type="text" name="pos" class="form-control" value="<?= $row['pos_anggaran']?>" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Terbilang</label>
+            <input type="text" name="terbilang" class="form-control" value="<?= $row['terbilang']?>" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Uraian</label>
+            <input type="text" name="uraian" class="form-control" value="<?= $row['uraian']?>" readonly>
           </div>
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success">Update</button>
+            <button type="submit" class="btn btn-success">OK</button>
           </div>
         </form>
       </div>
