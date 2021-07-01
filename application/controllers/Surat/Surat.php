@@ -12,6 +12,7 @@ class Surat extends CI_Controller {
         $data['jns_transaksi'] = $this->MyModel->get_jns_trans();
         $data['no_surat']= $this->MyModel->get_no_surat();
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
+        $data['bagian'] = $this->db->get('tbl_bagian')->result_array();
         $data['title'] = 'Surat Pemasukan & Pengeluaran';
         $data['surat'] = $this->MyModel->get_surat();
         $this->load->view('Template/Header_v.php',$data);
