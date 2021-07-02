@@ -68,7 +68,7 @@
                                             <td><?= $row['kepada'];?></td>
                                             <td><?= $row['pos_anggaran'];?></td>
                                             <td><?= date('d-M-Y',$row['date']);?></td>
-                                            <td><?= $row['status'];?></td>
+                                            <td> <button class="btn btn-danger" disabled><?= $row['status'];?></button></td>
                                             <td>            
                                                 <button data-toggle="modal" data-target="#detail<?=$row['id'];?>" class="btn btn-warning mr-2"><i class="mdi mdi-details"></i> Detail </button>
                                             </td>
@@ -153,7 +153,7 @@
             <select class="form-control" name="kepada" required>
               <option value="" selected disabled >- Pilih Kepada -</option>
             <?php foreach($bagian as $bg):?>
-              <option value="<?= "(".$bg['bagian'].")"." ".$bg['nama'];?>"><?= "(".$bg['bagian'].")"." ".$bg['nama'];?></option>
+              <option value="<?= $bg['nama'];?>"><?= "(".$bg['bagian'].")"." ".$bg['nama'];?></option>
             <?php endforeach;?>
 					  </select>
           </div>
@@ -172,8 +172,8 @@
             <label class="col-form-label">Cara Pembayaran :</label>
             <select class="form-control" name="cr_pem" required>
               <option value="" selected disabled >- Pilih -</option>
-              <option value="Masuk">Tunai</option>
-              <option value="Keluar">Non Tunai</option>
+              <option value="Tunai">Tunai</option>
+              <option value="Non Tunai">Non Tunai</option>
 					  </select>
           </div>
 
@@ -217,7 +217,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('Master/Surat')?>" method="post">
+        <form action="<?= base_url('Surat/Surat/to_PDF')?>" method="post">
 
         <input type="hidden" name="id" class="form-control" value="<?= $row['id'];?>">
         
@@ -237,13 +237,23 @@
           </div>
 
           <div class="form-group">
+            <label class="col-form-label">Kepada :</label>
+            <input type="text" name="kepada" class="form-control" value="<?= $row['kepada']?>" readonly>
+          </div>
+
+          <div class="form-group">
             <label class="col-form-label">Pos Anggaran</label>
             <input type="text" name="pos" class="form-control" value="<?= $row['pos_anggaran']?>" readonly>
           </div>
 
           <div class="form-group">
             <label class="col-form-label">Cara Pembayaran</label>
-            <input type="text" name="pos" class="form-control" value="<?= $row['pos_anggaran']?>" readonly>
+            <input type="text" name="pos" class="form-control" value="<?= $row['cara_pembayaran']?>" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Terbilang</label>
+            <input type="text" name="terbilang" class="form-control" value="<?= $row['nominal']?>" readonly>
           </div>
 
           <div class="form-group">
@@ -258,7 +268,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success">OK</button>
+            <button type="submit" class="btn btn-danger btn-oval"><i class="fa fa-print"> </i>To PDF</button>
           </div>
         </form>
       </div>

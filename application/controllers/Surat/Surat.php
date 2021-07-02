@@ -43,10 +43,21 @@ class Surat extends CI_Controller {
             'terbilang' => $terbilang,
             'uraian' => $uraian,
             'date' => time(),
-            'status' => 'pending'
+            'status' => 'UNAPPROVED'
         ];
 
         $this->db->insert('tbl_surat', $data);
         redirect('Surat/surat');
+    }
+
+    public function to_PDF(){
+        $this->load->library('pdf');
+        $id = $this->input->post('id');
+        $data['data'] = $this->db->get_where('tbl_surat', ['id'=>$id])->result_array();
+        
+        $data['jabatan'] = $this->db->get('tbl_bagian')->result_array();
+        $html = $this->load->view('Surat/Pdf_v', $data, true);
+        $filename = 'report_'.time();
+        $this->pdf->generate($html, $filename, true, 'A4', 'portrait');
     }
 }
