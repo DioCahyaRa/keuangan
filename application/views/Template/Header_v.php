@@ -12,6 +12,12 @@
         content="Xtreme Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
     <meta name="robots" content="noindex,nofollow">
     <title><?= $title?></title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="<?= base_url('Assets/Login/')?>css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="<?= base_url('Assets/Login/')?>css/style.css">
     
     <!-- Custom CSS -->
     <link href="<?= base_url('Assets/dashboard/');?>/css/style.min.css" rel="stylesheet">
@@ -136,7 +142,7 @@
                         <hr class="border border-primary m-3">
                         <span class="ml-3">Master</span>
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Jenis Biaya"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
-                                href="<?= base_url('Master/Jenis_biaya')?>"><i class="fas fa-file-invoice-dollar"></i><span
+                                href="<?= base_url('Master/Jenis_biaya')?>"><i class="mdi mdi-file-chart"></i><span
                                     class="hide-menu">Jenis Biaya</span></a></li>
 
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Jenis Transaksi"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
@@ -146,14 +152,31 @@
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Bagian"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Master/Bagian')?>" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span
                                     class="hide-menu">Bagian</span></a></li>
+
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Asal Dana"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Master/Asal_dana')?>" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span
+                                    class="hide-menu">Asal Dana</span></a></li>
                                     
                                     
                         <hr class="border border-primary m-3">
                         <span class="ml-3">Surat</span>
 
-                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Surat Pemasukan & Pengeluaran"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
-                                href="<?= base_url('Surat/Surat')?>" aria-expanded="false"><i class="mdi mdi-note-text"></i><span
-                                    class="hide-menu">Surat</span></a></li>
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Surat Pembayaran"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Surat/Surat_pembayaran')?>" aria-expanded="false"><i class="mdi mdi-file-export"></i><span
+                                    class="hide-menu">Surat Pembayaran</span></a></li>
+
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Surat Penerimaan"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Surat/Surat_penerimaan')?>" aria-expanded="false"><i class="mdi mdi-file-import"></i><span
+                                    class="hide-menu">Surat Penerimaan</span></a></li>
+
+
+                        <hr class="border border-primary m-3">
+                        <span class="ml-3">User</span>
+
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Data User"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('User/User')?>" aria-expanded="false"><i class="mdi mdi-account-multiple-plus"></i><span
+                                    class="hide-menu">User</span></a></li>
+
 
                         <hr class="border border-primary m-3">
                         <li class="sidebar-item ml-1"> <a class="sidebar-link waves-effect waves-dark sidebar-link"

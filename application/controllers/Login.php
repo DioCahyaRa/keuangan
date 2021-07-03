@@ -40,7 +40,8 @@ class Login extends CI_Controller {
             'username' => $username,
             'nama' => $nama,
             'email' => $email,
-            'password' => password_hash($password,PASSWORD_DEFAULT)
+            'password' => password_hash($password,PASSWORD_DEFAULT),
+            'role' => 'Account'
         ];
 
         $this->db->insert('user', $data_user,$email);
@@ -72,7 +73,7 @@ class Login extends CI_Controller {
                     'nama' => $cek_user['nama'],
                     'username' => $cek_user['username'],
                     'email' => $cek_user['email'],
-                    'role_id' => $cek_user['role_id']
+                    'role' => $cek_user['role']
                 ];
                 $this->session->set_userdata($data_user);
                 $this->session->set_flashdata('msg-succcess','<script>Swal.fire("","Success Login","success")</script>');

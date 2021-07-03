@@ -47,8 +47,12 @@ class MyModel extends CI_Model {
 
     // Surat
     
-    public function get_surat(){
-        return $this->db->get_where('tbl_surat')->result_array();
+    public function get_surat_pembayaran(){
+        return $this->db->get_where('tbl_surat',['masuk_keluar' => 'Keluar'])->result_array();
+    }
+
+    public function get_surat_pemasukan(){
+        return $this->db->get_where('tbl_surat',['masuk_keluar' => 'Masuk'])->result_array();
     }
 
     function get_no_surat(){

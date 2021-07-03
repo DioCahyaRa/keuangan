@@ -36,8 +36,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Data <?= $title?></h4>
-                                <h6 class="card-subtitle">Berikut adalah data <?= $title?></h6>
+                                <h4 class="card-title">Data Surat Perintah Membayar</h4>
+                                <h6 class="card-subtitle">Berikut adalah data Surat Perintah Membayar</h6>
                                 <button class="btn btn-info mr-2" data-toggle="modal" data-target="#addModal"><i class="mdi mdi-plus-box-outline"></i> Tambah </button>
                             </div>
                             <div class="table-responsive p-20">
@@ -47,8 +47,7 @@
                                         <tr>
                                             <th scope="col">NO</th>
                                             <th scope="col">NO SURAT</th>
-                                            <th scope="col">JENIS Biaya</th>
-                                            <th scope="col">MASUK / KELUAR</th>
+                                            <th scope="col">JENIS BIAYA</th>
                                             <th scope="col">KEPADA</th>
                                             <th scope="col">POS ANGGARAN</th>
                                             <th scope="col">DATE</th>
@@ -64,7 +63,6 @@
                                             <th scope="row"><?= $no++;?></th>
                                             <td><?= $row['no_surat'];?></td>
                                             <td><?= $row['jns_biaya'];?></td>
-                                            <td><?= $row['masuk_keluar'];?></td>
                                             <td><?= $row['kepada'];?></td>
                                             <td><?= $row['pos_anggaran'];?></td>
                                             <td><?= date('d-M-Y',$row['date']);?></td>
@@ -98,8 +96,8 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by Xtreme Admin. Designed and Developed by <a
-                    href="https://www.wrappixel.com">WrapPixel</a>.
+                <!-- All Rights Reserved by Xtreme Admin. Designed and Developed by <a
+                    href="https://www.wrappixel.com">WrapPixel</a>. -->
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -123,7 +121,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('Surat/Surat/addSurat')?>" method="post">
+        <form action="<?= base_url('Surat/Surat_pembayaran/addSurat')?>" method="post">
           <div class="form-group">
             <label class="col-form-label">No Surat :</label>
             <input type="text" name="no_surat" class="form-control" value="<?= $no_surat;?>" required readonly>
@@ -136,15 +134,6 @@
               <?php foreach($jns_biaya as $jns):?>
                 <option value="<?= $jns['jns_biaya'];?>"><?= $jns['jns_biaya'];?></option>
               <?php endforeach;?>
-					  </select>
-          </div>
-
-          <div class="form-group">
-            <label class="col-form-label">Masuk / Keluar :</label>
-            <select class="form-control" name="msk_klr" required>
-              <option value="" selected disabled >- Pilih -</option>
-              <option value="Masuk">Masuk</option>
-              <option value="Keluar">Keluar</option>
 					  </select>
           </div>
 
@@ -217,7 +206,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('Surat/Surat/to_PDF')?>" method="post">
+        <form action="<?= base_url('Surat/Surat_pembayaran/to_PDF')?>" method="post">
 
         <input type="hidden" name="id" class="form-control" value="<?= $row['id'];?>">
         
@@ -252,8 +241,8 @@
           </div>
 
           <div class="form-group">
-            <label class="col-form-label">Terbilang</label>
-            <input type="text" name="terbilang" class="form-control" value="<?= $row['nominal']?>" readonly>
+            <label class="col-form-label">Nominal</label>
+            <input type="text" name="terbilang" class="form-control" value="Rp. <?= number_format($row['nominal']).",-";?>" readonly>
           </div>
 
           <div class="form-group">

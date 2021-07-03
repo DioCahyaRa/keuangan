@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Surat extends CI_Controller {
+class Surat_pembayaran extends CI_Controller {
     public function __construct(){
         parent:: __construct();
         $this->load->library('form_validation');
@@ -14,10 +14,10 @@ class Surat extends CI_Controller {
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
         $data['bagian'] = $this->db->get('tbl_bagian')->result_array();
         $data['jns_biaya'] = $this->db->get('jns_biaya')->result_array();
-        $data['title'] = 'Surat Pemasukan & Pengeluaran';
-        $data['surat'] = $this->MyModel->get_surat();
+        $data['title'] = 'Surat Pembayaran';
+        $data['surat'] = $this->MyModel->get_surat_pembayaran();
         $this->load->view('Template/Header_v.php',$data);
-        $this->load->view('Surat/Surat_v.php',$data);
+        $this->load->view('Surat/Surat_pembayaran_v.php',$data);
         $this->load->view('Template/Footer_v.php');
     }
 
@@ -35,7 +35,7 @@ class Surat extends CI_Controller {
         $data = [
             'no_surat' => $no_surat,
             'jns_biaya' => $jns_biaya,
-            'masuk_keluar' => $msk_klr,
+            'masuk_keluar' => 'Keluar',
             'kepada' => $kepada,
             'pos_anggaran' => $pos,
             'cara_pembayaran' => $cr_pem,
@@ -47,17 +47,17 @@ class Surat extends CI_Controller {
         ];
 
         $this->db->insert('tbl_surat', $data);
-        redirect('Surat/surat');
+        redirect('Surat/Surat_pembayaran');
     }
 
     public function to_PDF(){
         $this->load->library('pdf');
         $id = $this->input->post('id');
         $data['data'] = $this->db->get_where('tbl_surat', ['id'=>$id])->result_array();
-        
         $data['jabatan'] = $this->db->get('tbl_bagian')->result_array();
         $html = $this->load->view('Surat/Pdf_v', $data, true);
         $filename = 'report_'.time();
-        $this->pdf->generate($html, $filename, true, 'A4', 'portrait');
+        $this->pdf->generate($html, $filename, true, 'A4', 'landscape');
+       
     }
 }

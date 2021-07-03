@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Surat Perintah Membayar</title>
+  <title>Surat Perintah Menerima Uang</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="<?= base_url('Assets/css/')?>style.css">
 </head>
 <body>
 <?php foreach($data as $datas):?>
   <section>
-    <h2 class="text-center">Surat Perintah Membayar</h2>
+    <h2 class="text-center">Surat Perintah Menerima Uang</h2>
     
     <div class="head">
         <table class="table-1" style="width:40%">
         
             <tr>
-                <th>Dibayar Kepada</th>
-                <td>: <?= $datas['kepada'];?></td> 
-                
+                <th>Terima Dari</th>
+                <td>: <?= $datas['asal_dana'];?></td>
             </tr>
             <tr>
-                <th>Pos Anggaran</th>
-                <td>: <?= $datas['pos_anggaran'];?></td> 
+                <th>Cara Bayar</th>
+                <td>: <?= $datas['cara_pembayaran'];?></td> 
             </tr>
             <tr>
                 <th>Jumlah</th>
@@ -35,8 +34,8 @@
                 
             </tr>
             <tr>
-                <th>Cara Bayar</th>
-                <td>: <?= $datas['cara_pembayaran'];?></td> 
+                <th></th>
+                <td></td> 
             </tr>
             <tr>
                 <th>Jenis Biaya</th>
@@ -46,7 +45,7 @@
     </div>
 
     <div class="head-2">
-        <table class="table table-bordered" style="width:100%;">
+        <table class="table table-bordered text-center" style="width:100%;">
             <tr>
                 <th><?= $datas['terbilang']?></th>
             </tr>
@@ -57,48 +56,35 @@
         <table class="table text-center table-bordered" style="width=100%">
             <tr>
                 <th colspan="2">No. Perkiraan</th>
-                <th colspan="2">Uraian</th>
+                <th colspan="3">Uraian</th>
                 <th colspan="2">Jumlah</th>
             </tr>
             <tr>
                 <td colspan="2"></td>
-                <td colspan="2"><?= $datas['uraian'];?></td>
+                <td colspan="3"><?= $datas['uraian'];?></td>
                 <td colspan="2">Rp. <?= number_format($datas['nominal']).",-";?></td> 
             </tr>
             <tr>
                 <th colspan="2">Paraf</th>
-                <th>Pemohon</th>
-                <th>Menyetujui</th>
-                <th colspan="2">Menerima</th>
+                <th colspan="5" class="text-center">Menyetujui</th>
+                
             </tr>
             <tr>
                 <th>Kabag</th>
                 <th>Account</th>
-                <td rowspan="2"></td>
-                <td rowspan="2"></td>
-                <td colspan="2" rowspan="2"></td>
+                <td rowspan="2" colspan="5"><?php if($datas['status']=='UNAPPROVED'){
+                    ?> <?= $datas['status']?>
+                    <?php };?></td>
             </tr>
             <tr class="height-kosong">
                 <th rowspan="2"></th>
                 <th rowspan="2"></th>
             </tr>
             <tr>
-                <td>(Marhakim, S.Pd., MM.)</td>
-                <td>(Budi, Drs., MBA.)</td>
-                <td colspan="2" class="text-bottom">(.................)</td>
+                
+                <td colspan="5" class="text-center">(Taufik Maulana, Drs., MBA.)</td>
             </tr>
-            <tr>
-                <th colspan="2">Anggaran</th>
-                <th>Realisasi</th>
-                <th>Sisa Anggaran</th>
-                <th colspan="2">Keterangan</th>
-            </tr>
-            <tr>
-                <td colspan="2"></td>
-                <td></td>
-                <td></td>
-                <td colspan="2"></td>
-            </tr>
+            
         </table>
         <p class="text-center">BUKTI HARUS DILAMPIRKAN</p>
     </div>

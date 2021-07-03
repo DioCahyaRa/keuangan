@@ -31,6 +31,29 @@
        document.getElementById("terbilang-output").value = terbilang(input).replace(/  +/g, ' ');
     } 
   </script>
+
+    <script type="text/javascript">
+    $('#submit').click(function() {
+        var form_data = {
+            username: $('#username').val(),
+            email: $('#email').val(),
+            nama: $('#nama').val(),
+            password: $('#password').val(),
+        };
+        $.ajax({
+            url: "<?php echo site_url('User/User/add'); ?>",
+            type: 'POST',
+            data: form_data,
+            success: function(msg) {
+                if (msg == 'YES')
+                  location.reload();
+                else
+                    $('#alert-msg').html('<div class="alert alert-danger">' + msg + '</div>');
+            }
+        });
+        return false;
+    });
+    </script>
 </body>
 
 </html>
