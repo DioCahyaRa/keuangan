@@ -24,7 +24,9 @@
    
 
     <!-- DataTables -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url('Assets/')?>datatables/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/b-1.7.1/b-print-1.7.1/date-1.1.0/fh-3.1.9/r-2.2.9/datatables.min.css"/>
+
+
 
     <!-- Sweetalert CDN-->
 	<script src="//cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
@@ -132,9 +134,10 @@
                             <!-- End User Profile-->
                         </li>
                         <!-- User Profile-->
-                        <li class="sidebar-item ml-1"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="#" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Dashboard"):?>Active <?php endif;?>sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Page/Dashboard')?>" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
+
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Profile"):?>Active <?php endif;?>sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Page/Profile')?>" aria-expanded="false"><i
                                     class="mdi mdi-account-network"></i><span class="hide-menu">Profile</span></a></li>

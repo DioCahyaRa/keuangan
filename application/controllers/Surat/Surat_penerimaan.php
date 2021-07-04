@@ -55,6 +55,23 @@ class Surat_penerimaan extends CI_Controller {
         $html = $this->load->view('Surat/Pdf_masuk_v', $data, true);
         $filename = 'report_'.time();
         $this->pdf->generate($html, $filename, true, 'A4', 'landscape');
-        
+    }
+
+    public function Approved_kabag($id){
+        $data = [
+            'status' => 'UNAPPROVED KETUA'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_penerimaan');
+    }
+
+    public function Canceled_kabag($id){
+        $data = [
+            'status' => 'CANCELED'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_penerimaan');
     }
 }

@@ -12,15 +12,14 @@
     <!--Custom JavaScript -->
     <script src="<?= base_url('Assets/dashboard/')?>js/custom.js"></script>
     <!-- DataTables -->
-    <script type="text/javascript" src="<?= base_url('Assets/')?>datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/b-1.7.1/b-print-1.7.1/date-1.1.0/fh-3.1.9/r-2.2.9/datatables.min.js"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
-    $('#example').DataTable();
-    } );
+      $(document).ready(function() {
+      $('#example').DataTable();
+      } );
     </script>
 
     <!-- Terbilang -->
-    <script src="<?= base_url('Assets/terbilang/')?>jquery-1.11.2.min.js"></script>
     <script src="<?= base_url('Assets/terbilang/')?>terbilang.js"></script>
     <script type="text/javascript">
     function inputTerbilang() {

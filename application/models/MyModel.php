@@ -70,4 +70,20 @@ class MyModel extends CI_Model {
         return date('dmy').$kd;
     }
 
+    public function CountAlert(){
+        $this->db->count_all_results('tbl_surat');
+        $this->db->where('status','UNAPPROVED KABAG');
+        $this->db->where('masuk_keluar','Masuk');
+        $this->db->from('tbl_surat');
+        return $this->db->count_all_results();
+    }
+
+    public function CountAlert2(){
+        $this->db->count_all_results('tbl_surat');
+        $this->db->where('status','UNAPPROVED KABAG');
+        $this->db->where('masuk_keluar','Keluar');
+        $this->db->from('tbl_surat');
+        return $this->db->count_all_results();
+    }
+
 }

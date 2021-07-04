@@ -72,16 +72,19 @@
             <tr>
                 <th>Kabag</th>
                 <th>Account</th>
-                <th rowspan="2" colspan="5"><?php if($datas['status']=='UNAPPROVED KABAG'){
-                    ?> <?= $datas['status']?>
-                    <?php };?></th>
-            </tr>
-            <tr class="height-kosong">
-                <th rowspan="2">
-                    <?php if($datas['status']=='UNAPPROVED KABAG' || $datas['status']=='UNAPPROVED KETUA'){
+                <th rowspan="2" colspan="5">
+                    <?php if($datas['status']=='UNAPPROVED KABAG' || $datas['status']=='UNAPPROVED KETUA' || $datas['status']=='CANCELED'){
                         ?> <?= $datas['status']?>
                     <?php };?></th>
-                <th rowspan="2"></th>
+                
+            </tr>
+            <tr class="height-kosong">
+                <th rowspan="2"><?php if($datas['status']=='UNAPPROVED KABAG'|| $datas['status']=='CANCELED'){
+                    ?> <?= $datas['status']?>
+                    <?php }else{?>
+                    <img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:70px;">
+                    <?php }?></th>
+                <th rowspan="2"><img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:70px;"></th>
             </tr>
             <tr>
                 
