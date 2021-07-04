@@ -43,7 +43,7 @@ class Surat_pembayaran extends CI_Controller {
             'terbilang' => $terbilang,
             'uraian' => $uraian,
             'date' => time(),
-            'status' => 'UNAPPROVED'
+            'status' => 'UNAPPROVED KABAG'
         ];
 
         $this->db->insert('tbl_surat', $data);

@@ -72,12 +72,15 @@
             <tr>
                 <th>Kabag</th>
                 <th>Account</th>
-                <td rowspan="2" colspan="5"><?php if($datas['status']=='UNAPPROVED'){
+                <th rowspan="2" colspan="5"><?php if($datas['status']=='UNAPPROVED KABAG'){
                     ?> <?= $datas['status']?>
-                    <?php };?></td>
+                    <?php };?></th>
             </tr>
             <tr class="height-kosong">
-                <th rowspan="2"></th>
+                <th rowspan="2">
+                    <?php if($datas['status']=='UNAPPROVED KABAG' || $datas['status']=='UNAPPROVED KETUA'){
+                        ?> <?= $datas['status']?>
+                    <?php };?></th>
                 <th rowspan="2"></th>
             </tr>
             <tr>
