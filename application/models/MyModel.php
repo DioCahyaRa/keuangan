@@ -48,19 +48,24 @@ class MyModel extends CI_Model {
     // Surat
     
     public function get_surat_pembayaran(){
+        $this->db->order_by('no_surat', 'ASC');
         return $this->db->get_where('tbl_surat',['masuk_keluar' => 'Keluar'])->result_array();
     }
 
     public function get_surat_pemasukan(){
+        $this->db->order_by('date', 'DESC');
         return $this->db->get_where('tbl_surat',['masuk_keluar' => 'Masuk'])->result_array();
     }
 
     function get_no_surat(){
-        $q = $this->db->query("SELECT MAX(RIGHT(no_surat,4)) AS kd_max FROM tbl_surat WHERE DATE(date)=CURDATE()");
+        // $this->db->query("SELECT MAX(RIGHT(no_surat,4)) AS kd_max FROM tbl_surat");
+        // $this->db->where('date', time());
+        $today = date('dmy',time());
+        $q = $this->db->query("SELECT MAX(RIGHT(no_surat,4)) AS kd_max FROM tbl_surat WHERE LEFT(no_surat,6) = $today");
         $kd = "";
         if($q->num_rows()>0){
             foreach($q->result() as $k){
-                $tmp = ((int)$k->kd_max)+1;
+                $tmp = ((int)$k->kd_max) + 1;
                 $kd = sprintf("/%04s", $tmp);
             }
         }else{
@@ -70,6 +75,9 @@ class MyModel extends CI_Model {
         return date('dmy').$kd;
     }
 
+    // Dashboard
+
+    // KABAG
     public function CountAlert(){
         $this->db->count_all_results('tbl_surat');
         $this->db->where('status','UNAPPROVED KABAG');
@@ -81,6 +89,23 @@ class MyModel extends CI_Model {
     public function CountAlert2(){
         $this->db->count_all_results('tbl_surat');
         $this->db->where('status','UNAPPROVED KABAG');
+        $this->db->where('masuk_keluar','Keluar');
+        $this->db->from('tbl_surat');
+        return $this->db->count_all_results();
+    }
+
+    // KETUA
+    public function CountAlert_ketua(){
+        $this->db->count_all_results('tbl_surat');
+        $this->db->where('status','UNAPPROVED KETUA');
+        $this->db->where('masuk_keluar','Masuk');
+        $this->db->from('tbl_surat');
+        return $this->db->count_all_results();
+    }
+
+    public function CountAlert2_ketua(){
+        $this->db->count_all_results('tbl_surat');
+        $this->db->where('status','UNAPPROVED KETUA');
         $this->db->where('masuk_keluar','Keluar');
         $this->db->from('tbl_surat');
         return $this->db->count_all_results();

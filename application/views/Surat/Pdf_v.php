@@ -54,7 +54,7 @@
     </div>
 
     <div class="table-core">
-        <table class="table text-center table-bordered" style="width=100%">
+        <table class="table text-center table-bordered" style="width:100%; font-size:15px;">
             <tr>
                 <th colspan="2">No. Perkiraan</th>
                 <th colspan="2">Uraian</th>
@@ -79,8 +79,14 @@
                 <td colspan="2" rowspan="2"></td>
             </tr>
             <tr class="height-kosong">
-                <th rowspan="2"></th>
-                <th rowspan="2"></th>
+                <th rowspan="2">
+                    <?php if($datas['status']=='UNAPPROVED KABAG' || $datas['status']=='CANCELED'){
+                        ?> <?= $datas['status']?>
+                    <?php }else{?>
+                        <img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:40px;">
+                    <?php }?>
+                </th>
+                <th rowspan="2"><img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:40px;"></th>
             </tr>
             <tr>
                 <td>(Marhakim, S.Pd., MM.)</td>

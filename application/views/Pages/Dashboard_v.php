@@ -41,7 +41,13 @@
                                     <ul class="list-style-none feed-body m-0 p-b-20">
                                         <li class="feed-item">
                                             <?php if($alert_count > 0):?>
-                                                <div class="feed-icon bg-info"><i class="fa fa-bell"></i></div> Pemberitahuan menunggu <?=$alert_count?> Approved<span class="ml-auto font-12 text-muted">
+                                                <div class="feed-icon bg-info"><i class="fa fa-bell"></i></div> Pemberitahuan menunggu 
+                                                <?php if($user_ses['role'] == 'Kabag'):?>
+                                                    <?=$alert_count?> 
+                                                <?php elseif($user_ses['role'] == 'Ketua'):?>
+                                                    <?=$alert_count2?> 
+                                                <?php endif; ?>
+                                                Approved<span class="ml-auto font-12 text-muted">
                                             <?php else: ?>
                                                 <div class="feed-icon bg-info"><i class="fa fa-bell"></i></div> Tidak ada Pemberitahuan<span class="ml-auto font-12 text-muted">
                                             <?php endif; ?>
@@ -52,14 +58,21 @@
                                         </li>
                                         <li>
                                             <div class="collapse" id="collapseExample">
-                                            <ul>
-                                                <?php if($alert_penerimaan):?>
-                                                    <li <?= $alert_penerimaan ?> class="p-1">Surat Penerimaan Perlu di Approve <a href="<?= base_url('Surat/Surat_penerimaan')?>"><button class="btn btn-success text-center">Check Penerimaan <i class="mdi mdi-arrow-right-bold-circle-outline"></i></button> </li></a>
-                                                <?php endif;?>
-                                                <?php if($alert_pembayaran):?>
-                                                    <li <?= $alert_pembayaran ?> class="p-1">Surat Pembayaran Perlu di Approve <a href="<?= base_url('Surat/Surat_pembayaran')?>"><button class="btn btn-info text-center">Check Pembayaran <i class="mdi mdi-arrow-right-bold-circle-outline"></i></button> </li></a>
-                                                <?php endif;?>
-                                            </ul>
+                                                <ul>
+                                                    <?php if($alert_penerimaan > 0 && $role == 'Kabag'):?>
+                                                        <li class="p-1"><?= $alert_penerimaan ?> Surat Penerimaan Perlu di Approve <a href="<?= base_url('Surat/Surat_penerimaan')?>"><button class="btn btn-success text-center">Check Penerimaan <i class="mdi mdi-arrow-right-bold-circle-outline"></i></button> </li></a>
+                                                    <?php endif;?>
+                                                    <?php if($alert_pembayaran > 0 && $role == 'Kabag'):?>
+                                                        <li class="p-1"><?= $alert_pembayaran ?> Surat Pembayaran Perlu di Approve <a href="<?= base_url('Surat/Surat_pembayaran')?>"><button class="btn btn-info text-center">Check Pembayaran <i class="mdi mdi-arrow-right-bold-circle-outline"></i></button> </li></a>
+                                                    <?php endif;?>
+
+                                                    <?php if($alert_penerimaan2 > 0 && $role == 'Ketua'):?>
+                                                        <li class="p-1"><?= $alert_penerimaan2 ?> Surat Penerimaan Perlu di Approve <a href="<?= base_url('Surat/Surat_penerimaan')?>"><button class="btn btn-success text-center">Check Penerimaan <i class="mdi mdi-arrow-right-bold-circle-outline"></i></button> </li></a>
+                                                    <?php endif;?>
+                                                    <?php if($alert_pembayaran2 > 0 && $role == 'Ketua'):?>
+                                                        <li class="p-1"><?= $alert_pembayaran2 ?> Surat Pembayaran Perlu di Approve <a href="<?= base_url('Surat/Surat_pembayaran')?>"><button class="btn btn-info text-center">Check Pembayaran <i class="mdi mdi-arrow-right-bold-circle-outline"></i></button> </li></a>
+                                                    <?php endif;?>
+                                                </ul>
                                             </div>
                                         </li>
                                         <li class="feed-item">

@@ -142,12 +142,12 @@
 
           <div class="form-group">
             <label class="col-form-label">Role :</label>
-            <select class="form-control" name="asal_dana" required>
-                <option value="" selected disabled >- Pilih Role -</option>
+            <select id="role" class="form-control" name="role" required>
+                <option value="" disabled >--Pilih Role--</option>
                 <?php foreach($role as $data):?>
                 <option value="<?= $data['nama_role'];?>"><?= $data['nama_role'];?></option>
                 <?php endforeach;?>
-			</select>
+		      	</select>
           </div>
 
           <div class="modal-footer">
@@ -196,7 +196,7 @@
                 <?php foreach($role as $data):?>
                 <option value="<?= $data['nama_role'];?>"><?= $data['nama_role'];?></option>
                 <?php endforeach;?>
-			</select>
+		      	</select>
           </div>
 
           <div class="modal-footer">

@@ -74,4 +74,22 @@ class Surat_penerimaan extends CI_Controller {
         $this->db->update('tbl_surat',$data);
         redirect('Surat/Surat_penerimaan');
     }
+
+    public function Approved_ketua($id){
+        $data = [
+            'status' => 'APPROVED'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_penerimaan');
+    }
+
+    public function Canceled_ketua($id){
+        $data = [
+            'status' => 'CANCELED'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_penerimaan');
+    }
 }

@@ -57,7 +57,25 @@ class Surat_pembayaran extends CI_Controller {
         $data['jabatan'] = $this->db->get('tbl_bagian')->result_array();
         $html = $this->load->view('Surat/Pdf_v', $data, true);
         $filename = 'report_'.time();
-        $this->pdf->generate($html, $filename, true, 'A4', 'landscape');
-       
+        $this->pdf->generate($html, $filename, true, 'A4', 'landscape');  
+    }
+
+    
+    public function Approved_kabag($id){
+        $data = [
+            'status' => 'APPROVED'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_pembayaran');
+    }
+
+    public function Canceled_kabag($id){
+        $data = [
+            'status' => 'CANCELED'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_pembayaran');
     }
 }

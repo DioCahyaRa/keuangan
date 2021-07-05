@@ -23,6 +23,7 @@ class User extends CI_Controller {
         $nama = $this->input->post('nama');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
+        $role = $this->input->post('role');
 
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]');
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
@@ -38,7 +39,7 @@ class User extends CI_Controller {
             'nama' => $nama,
             'email' => $email,
             'password' => password_hash($password,PASSWORD_DEFAULT),
-            'role' => 'Account'
+            'role' => $role
         ];
 
         $this->db->insert('user', $data_user,$email);

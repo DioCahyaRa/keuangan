@@ -247,11 +247,19 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-danger btn-oval"><i class="mdi mdi-file-pdf"> </i>To PDF</button>
-            <?php if($row['status'] == 'UNAPPROVED KABAG'):?>
+            <?php if($row['status'] == 'UNAPPROVED KABAG' && $user_ses['role'] == 'Kabag'):?>
               <a href="<?php echo base_url().'Surat/Surat_penerimaan/Approved_kabag'.'/'.$row['id']; ?>">
                 <button type="button" class="btn btn-success mt-2 mb-2"><i class="mdi mdi-checkbox-marked-circle-outline"></i> Approved</button>
               </a>
               <a href="<?php echo base_url().'Surat/Surat_penerimaan/Canceled_kabag'.'/'.$row['id']; ?>">
+              <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
+            <?php endif;?>
+
+            <?php if($row['status'] == 'UNAPPROVED KETUA' && $user_ses['role'] == 'Ketua'):?>
+              <a href="<?php echo base_url().'Surat/Surat_penerimaan/Approved_ketua'.'/'.$row['id']; ?>">
+                <button type="button" class="btn btn-success mt-2 mb-2"><i class="mdi mdi-checkbox-marked-circle-outline"></i> Approved</button>
+              </a>
+              <a href="<?php echo base_url().'Surat/Surat_penerimaan/Canceled_ketua'.'/'.$row['id']; ?>">
               <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
             <?php endif;?>
           </div>

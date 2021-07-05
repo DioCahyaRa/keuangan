@@ -66,9 +66,18 @@
                                             <td><?= $row['kepada'];?></td>
                                             <td><?= $row['pos_anggaran'];?></td>
                                             <td><?= date('d-M-Y',$row['date']);?></td>
-                                            <td> <button class="btn btn-danger" disabled><?= $row['status'];?></button></td>
+                                            <td> <button class="btn
+                                             
+                                            <?php if($row['status'] == 'CANCELED'){?> 
+                                              btn-danger
+                                            <?php }elseif($row['status'] == 'UNAPPROVED KABAG'){?>
+                                             btn-warning
+                                            <?php } else{?>
+                                              btn-success
+                                            <?php };?>
+                                             " disabled><?= $row['status'];?></button></td>
                                             <td>            
-                                                <button data-toggle="modal" data-target="#detail<?=$row['id'];?>" class="btn btn-warning mr-2"><i class="mdi mdi-details"></i> Detail </button>
+                                                <button data-toggle="modal" data-target="#detail<?=$row['id'];?>" class="btn btn-primary mr-2"><i class="mdi mdi-details"></i> Detail </button>
                                             </td>
                                         </tr>
                                         <?php endforeach;?>
@@ -258,6 +267,13 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-danger btn-oval"><i class="fa fa-print"> </i>To PDF</button>
+            <?php if($row['status'] == 'UNAPPROVED KABAG' && $user_ses['role'] == 'Kabag'):?>
+              <a href="<?php echo base_url().'Surat/Surat_pembayaran/Approved_kabag'.'/'.$row['id']; ?>">
+                <button type="button" class="btn btn-success mt-2 mb-2"><i class="mdi mdi-checkbox-marked-circle-outline"></i> Approved</button>
+              </a>
+              <a href="<?php echo base_url().'Surat/Surat_pembayaran/Canceled_kabag'.'/'.$row['id']; ?>">
+              <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
+            <?php endif;?>
           </div>
         </form>
       </div>

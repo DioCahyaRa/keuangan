@@ -75,7 +75,9 @@
                 <th rowspan="2" colspan="5">
                     <?php if($datas['status']=='UNAPPROVED KABAG' || $datas['status']=='UNAPPROVED KETUA' || $datas['status']=='CANCELED'){
                         ?> <?= $datas['status']?>
-                    <?php };?></th>
+                    <?php }else{?>
+                        <img src="<?= base_url('Assets/Image/ttd2.png')?>" style="width:140px;">
+                    <?php }?></th>
                 
             </tr>
             <tr class="height-kosong">

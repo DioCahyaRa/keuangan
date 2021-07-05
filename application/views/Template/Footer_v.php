@@ -38,6 +38,7 @@
             email: $('#email').val(),
             nama: $('#nama').val(),
             password: $('#password').val(),
+            role: $('#role').val(),
         };
         $.ajax({
             url: "<?php echo site_url('User/User/add'); ?>",
