@@ -40,17 +40,17 @@
                                 <div class="feed-widget">
                                     <ul class="list-style-none feed-body m-0 p-b-20">
                                         <li class="feed-item">
-                                            <?php if($alert_count > 0):?>
+                                            <?php if($alert_count > 0 || $alert_count2 > 0 || $alert_pembayaran3 > 0):?>
                                                 <div class="feed-icon bg-info"><i class="fa fa-bell"></i></div> Pemberitahuan menunggu 
-                                                <?php if($user_ses['role'] == 'Kabag'):?>
+                                            <?php if($user_ses['role'] == 'Kabag'):?>
                                                     <?=$alert_count?> 
                                                 <?php elseif($user_ses['role'] == 'Ketua'):?>
                                                     <?=$alert_count2?> 
                                                 <?php elseif($user_ses['role'] == 'WAKET II'):?>
                                                     <?=$alert_pembayaran3?> 
                                                 <?php endif; ?>
-                                                Approved<span class="ml-auto font-12 text-muted">
-                                            <?php else: ?>
+                                                    Approved<span class="ml-auto font-12 text-muted">
+                                                <?php else: ?>
                                                 <div class="feed-icon bg-info"><i class="fa fa-bell"></i></div> Tidak ada Pemberitahuan<span class="ml-auto font-12 text-muted">
                                             <?php endif; ?>
                                             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
