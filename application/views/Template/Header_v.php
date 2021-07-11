@@ -144,6 +144,10 @@
                         
                         <hr class="border border-primary m-3">
                         <span class="ml-3">Master</span>
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Anggaran"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Master/Anggaran')?>"><i class="mdi mdi-cash-multiple"></i><span
+                                    class="hide-menu">Anggaran</span></a></li>
+
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Jenis Biaya"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Master/Jenis_biaya')?>"><i class="mdi mdi-file-chart"></i><span
                                     class="hide-menu">Jenis Biaya</span></a></li>
@@ -151,6 +155,10 @@
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Jenis Transaksi"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Master/Jenis_transaksi')?>"><i class="mdi mdi-clipboard-text"></i><span
                                     class="hide-menu">Jenis Transaksi</span></a></li>
+
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Data Pos"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Master/Pos')?>"><i class="mdi mdi-dns"></i><span
+                                    class="hide-menu">Data Pos</span></a></li>
 
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Bagian"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Master/Bagian')?>" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span

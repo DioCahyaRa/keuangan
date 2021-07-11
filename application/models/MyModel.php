@@ -120,4 +120,10 @@ class MyModel extends CI_Model {
         return $this->db->count_all_results();
     }
 
+
+    // Anggaran
+    public function add_anggaran($data_add){
+        $this->db->insert('anggaran', $data_add);
+    }
+
 }

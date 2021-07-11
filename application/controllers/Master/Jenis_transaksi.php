@@ -18,11 +18,9 @@ class Jenis_transaksi extends CI_Controller {
 
     public function addJT(){
         $jns_trans = $this->input->post('jns_trans');
-        $pos = $this->input->post('pos');
         
         $data_add = [
             'jns_trans' => $jns_trans,
-            'pos' => $pos
         ];
 
         $this->MyModel->addJT($data_add);
@@ -31,12 +29,10 @@ class Jenis_transaksi extends CI_Controller {
 
     public function editJT(){
         $jns_trans = $this->input->post('jns_trans');
-        $pos = $this->input->post('pos');
         $id = $this->input->post('id');
         
         $data_edit = [
             'jns_trans' => $jns_trans,
-            'pos' => $pos
         ];
         
         $this->MyModel->editJT($data_edit,$id);

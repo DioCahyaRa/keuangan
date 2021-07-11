@@ -47,7 +47,6 @@
                                         <tr>
                                             <th scope="col">NO</th>
                                             <th scope="col">JENIS TRANSAKSI</th>
-                                            <th scope="col">NAMA POS</th>
                                             <th scope="col">ACTION</th>
                                         </tr>
                                     </thead>
@@ -58,7 +57,6 @@
                                         <tr>
                                             <th scope="row"><?= $no++;?></th>
                                             <td><?= $row['jns_trans'];?></td>
-                                            <td><?= $row['pos'];?></td>
                                             <td>            
                                                 <button data-toggle="modal" data-target="#editModal<?=$row['id'];?>" class="btn btn-success mr-2"><i class="mdi mdi-tooltip-edit"></i> Edit </button>
                                                 <button data-toggle="modal" data-target="#deleteModal<?=$row['id'];?>" class="btn btn-danger"><i class="mdi mdi-delete-circle"></i> Delete</button>
@@ -120,11 +118,6 @@
             <input type="text" name="jns_trans" class="form-control" required>
           </div>
 
-          <div class="form-group">
-            <label class="col-form-label">Nama Pos:</label>
-            <input type="text" name="pos" class="form-control" required>
-          </div>
-
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Save</button>
@@ -159,11 +152,6 @@
             <input type="text" name="jns_trans" class="form-control" value="<?= $row['jns_trans'];?>" required>
           </div>
 
-          <div class="form-group">
-            <label class="col-form-label">Nama Pos:</label>
-            <input type="text" name="pos" class="form-control" value="<?= $row['pos'];?>" required>
-          </div>
-
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-success">Update</button>
@@ -194,7 +182,7 @@
         <form action="<?= base_url('Master/Jenis_transaksi/deleteJT')?>" method="post">
 
         <input type="hidden" name="id" class="form-control" value="<?= $row['id'];?>">
-        <p>Apkah anda yakin Mneghapus data Jenis Transaksi <strong> <?= $row['jns_trans']?> </strong> nama pos <strong> <?= $row['pos']?> </strong> ?</p>
+        <p>Apkah anda yakin Mneghapus data Jenis Transaksi <strong> <?= $row['jns_trans']?> ?</p>
         
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

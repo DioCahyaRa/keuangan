@@ -9,7 +9,7 @@ class Surat_pembayaran extends CI_Controller {
     }
 
     public function index(){
-        $data['jns_transaksi'] = $this->MyModel->get_jns_trans();
+        $data['pos'] = $this->db->get('tbl_pos')->result_array();
         $data['no_surat']= $this->MyModel->get_no_surat();
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
         $data['bagian'] = $this->db->get('tbl_bagian')->result_array();

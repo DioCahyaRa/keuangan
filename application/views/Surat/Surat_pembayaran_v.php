@@ -164,8 +164,8 @@
             <label class="col-form-label">Pos Anggaran :</label>
             <select class="form-control" name="pos" required>
               <option value="" selected disabled >- Pilih Pos -</option>
-            <?php foreach($jns_transaksi as $jns):?>
-              <option value="<?= $jns['pos'];?>"><?= $jns['pos'];?></option>
+            <?php foreach($pos as $jns):?>
+              <option value="<?= $jns['nama_pos'];?>"><?= $jns['nama_pos'];?></option>
             <?php endforeach;?>
 					  </select>
           </div>

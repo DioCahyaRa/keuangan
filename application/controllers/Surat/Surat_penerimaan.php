@@ -8,7 +8,7 @@ class Surat_penerimaan extends CI_Controller {
     }
 
     public function index(){
-        $data['jns_transaksi'] = $this->MyModel->get_jns_trans();
+        $data['pos'] = $this->db->get('tbl_pos')->result_array();
         $data['no_surat']= $this->MyModel->get_no_surat();
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
         $data['asal_dana'] = $this->db->get('asal_dana')->result_array();
@@ -25,6 +25,7 @@ class Surat_penerimaan extends CI_Controller {
         $jns_biaya = $this->input->post('jns_biaya');
         $no_surat = $this->input->post('no_surat');
         $asal_dana = $this->input->post('asal_dana');
+        $pos = $this->input->post('pos');
         $cr_pem = $this->input->post('cr_pem');
         $nominal = $this->input->post('nominal');
         $terbilang = $this->input->post('terbilang');
@@ -35,6 +36,7 @@ class Surat_penerimaan extends CI_Controller {
             'jns_biaya' => $jns_biaya,
             'masuk_keluar' => 'Masuk',
             'asal_dana' => $asal_dana,
+            'pos_anggaran' => $pos,
             'cara_pembayaran' => $cr_pem,
             'nominal' => $nominal,
             'terbilang' => $terbilang,

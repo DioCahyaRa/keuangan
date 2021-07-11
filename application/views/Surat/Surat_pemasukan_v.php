@@ -157,6 +157,16 @@
           </div>
 
           <div class="form-group">
+            <label class="col-form-label">Pos Anggaran :</label>
+            <select class="form-control" name="pos" required>
+              <option value="" selected disabled >- Pilih Pos -</option>
+            <?php foreach($pos as $jns):?>
+              <option value="<?= $jns['nama_pos'];?>"><?= $jns['nama_pos'];?></option>
+            <?php endforeach;?>
+					  </select>
+          </div>
+
+          <div class="form-group">
             <label class="col-form-label">Cara Pembayaran :</label>
             <select class="form-control" name="cr_pem" required>
               <option value="" selected disabled >- Pilih -</option>
@@ -222,6 +232,11 @@
           <div class="form-group">
             <label class="col-form-label">Asal Dana :</label>
             <input type="text" name="asal_dana" class="form-control" value="<?= $row['asal_dana']?>" readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Pos Anggaran :</label>
+            <input type="text" name="pos" class="form-control" value="<?= $row['pos_anggaran']?>" readonly>
           </div>
 
           <div class="form-group">
