@@ -22,6 +22,9 @@ class Dashboard extends CI_Controller {
         $data['alert_pembayaran2'] = $this->MyModel->CountAlert2_ketua();
         $data['alert_count2'] = $data['alert_penerimaan2'] + $data['alert_pembayaran2'];
 
+        // WAKET II
+        $data['alert_pembayaran3'] = $this->MyModel->CountAlert2_waket2();
+
         $this->load->view('Template/Header_v.php',$data);
         $this->load->view('Pages/Dashboard_v.php',$data);
         $this->load->view('Template/Footer_v.php');

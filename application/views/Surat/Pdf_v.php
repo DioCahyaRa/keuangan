@@ -74,8 +74,20 @@
             <tr>
                 <th>Kabag</th>
                 <th>Account</th>
-                <td rowspan="2"></td>
-                <td rowspan="2"></td>
+                <td rowspan="2">
+                    <?php if($datas['status']=='UNAPPROVED KABAG' || $datas['status']=='CANCELED' || $datas['status']=='UNAPPROVED WAKET II'){
+                        ?> <?= $datas['status']?>
+                    <?php }else{?>
+                        <img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:40px;">
+                    <?php }?>
+                </td>
+                <td rowspan="2">
+                    <?php if($datas['status']=='UNAPPROVED KABAG' || $datas['status']=='CANCELED' || $datas['status']=='UNAPPROVED WAKET II' || $datas['status']=='UNAPPROVED KETUA'){
+                        ?> <?= $datas['status']?>
+                    <?php }else{?>
+                        <img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:40px;">
+                    <?php }?>
+                </td>
                 <td colspan="2" rowspan="2"></td>
             </tr>
             <tr class="height-kosong">
@@ -86,11 +98,17 @@
                         <img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:40px;">
                     <?php }?>
                 </th>
-                <th rowspan="2"><img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:40px;"></th>
+                <th rowspan="2">
+                    <?php if($datas['status']=='CANCELED'){
+                        ?> <?= $datas['status']?>
+                    <?php }else{?>
+                        <img src="<?= base_url('Assets/Image/ttd.png')?>" style="width:40px;">
+                    <?php }?>
+                </th>
             </tr>
             <tr>
                 <td>(Marhakim, S.Pd., MM.)</td>
-                <td>(Budi, Drs., MBA.)</td>
+                <td>(Taufik Maulana, Drs., MBA.)</td>
                 <td colspan="2" class="text-bottom">(.................)</td>
             </tr>
             <tr>

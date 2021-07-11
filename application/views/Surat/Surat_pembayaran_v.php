@@ -72,6 +72,10 @@
                                               btn-danger
                                             <?php }elseif($row['status'] == 'UNAPPROVED KABAG'){?>
                                              btn-warning
+                                            <?php }elseif($row['status'] == 'UNAPPROVED WAKET II'){?>
+                                             btn-dark text-sm-center
+                                            <?php }elseif($row['status'] == 'UNAPPROVED KETUA'){?>
+                                             btn-primary
                                             <?php } else{?>
                                               btn-success
                                             <?php };?>
@@ -272,6 +276,22 @@
                 <button type="button" class="btn btn-success mt-2 mb-2"><i class="mdi mdi-checkbox-marked-circle-outline"></i> Approved</button>
               </a>
               <a href="<?php echo base_url().'Surat/Surat_pembayaran/Canceled_kabag'.'/'.$row['id']; ?>">
+              <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
+            <?php endif;?>
+
+            <?php if($row['status'] == 'UNAPPROVED WAKET II' && $user_ses['role'] == 'WAKET II'):?>
+              <a href="<?php echo base_url().'Surat/Surat_pembayaran/Approved_waket2'.'/'.$row['id']; ?>">
+                <button type="button" class="btn btn-success mt-2 mb-2"><i class="mdi mdi-checkbox-marked-circle-outline"></i> Approved</button>
+              </a>
+              <a href="<?php echo base_url().'Surat/Surat_pembayaran/Canceled'.'/'.$row['id']; ?>">
+              <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
+            <?php endif;?>
+
+            <?php if($row['status'] == 'UNAPPROVED KETUA' && $user_ses['role'] == 'Ketua'):?>
+              <a href="<?php echo base_url().'Surat/Surat_pembayaran/Approved_ketua'.'/'.$row['id']; ?>">
+                <button type="button" class="btn btn-success mt-2 mb-2"><i class="mdi mdi-checkbox-marked-circle-outline"></i> Approved</button>
+              </a>
+              <a href="<?php echo base_url().'Surat/Surat_pembayaran/Canceled'.'/'.$row['id']; ?>">
               <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
             <?php endif;?>
           </div>

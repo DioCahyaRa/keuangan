@@ -46,6 +46,8 @@
                                                     <?=$alert_count?> 
                                                 <?php elseif($user_ses['role'] == 'Ketua'):?>
                                                     <?=$alert_count2?> 
+                                                <?php elseif($user_ses['role'] == 'WAKET II'):?>
+                                                    <?=$alert_pembayaran3?> 
                                                 <?php endif; ?>
                                                 Approved<span class="ml-auto font-12 text-muted">
                                             <?php else: ?>
@@ -71,6 +73,10 @@
                                                     <?php endif;?>
                                                     <?php if($alert_pembayaran2 > 0 && $role == 'Ketua'):?>
                                                         <li class="p-1"><?= $alert_pembayaran2 ?> Surat Pembayaran Perlu di Approve <a href="<?= base_url('Surat/Surat_pembayaran')?>"><button class="btn btn-info text-center">Check Pembayaran <i class="mdi mdi-arrow-right-bold-circle-outline"></i></button> </li></a>
+                                                    <?php endif;?>
+
+                                                    <?php if($alert_pembayaran3 > 0 && $role == 'WAKET II'):?>
+                                                        <li class="p-1"><?= $alert_pembayaran3 ?> Surat Pembayaran Perlu di Approve <a href="<?= base_url('Surat/Surat_pembayaran')?>"><button class="btn btn-info text-center">Check Pembayaran <i class="mdi mdi-arrow-right-bold-circle-outline"></i></button> </li></a>
                                                     <?php endif;?>
                                                 </ul>
                                             </div>

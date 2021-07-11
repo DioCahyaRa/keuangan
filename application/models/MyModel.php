@@ -48,7 +48,7 @@ class MyModel extends CI_Model {
     // Surat
     
     public function get_surat_pembayaran(){
-        $this->db->order_by('no_surat', 'ASC');
+        $this->db->order_by('no_surat', 'DESC');
         return $this->db->get_where('tbl_surat',['masuk_keluar' => 'Keluar'])->result_array();
     }
 
@@ -106,6 +106,15 @@ class MyModel extends CI_Model {
     public function CountAlert2_ketua(){
         $this->db->count_all_results('tbl_surat');
         $this->db->where('status','UNAPPROVED KETUA');
+        $this->db->where('masuk_keluar','Keluar');
+        $this->db->from('tbl_surat');
+        return $this->db->count_all_results();
+    }
+
+    // WAKET II
+    public function CountAlert2_waket2(){
+        $this->db->count_all_results('tbl_surat');
+        $this->db->where('status','UNAPPROVED WAKET II');
         $this->db->where('masuk_keluar','Keluar');
         $this->db->from('tbl_surat');
         return $this->db->count_all_results();

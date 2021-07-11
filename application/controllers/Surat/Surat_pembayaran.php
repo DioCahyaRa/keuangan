@@ -63,6 +63,24 @@ class Surat_pembayaran extends CI_Controller {
     
     public function Approved_kabag($id){
         $data = [
+            'status' => 'UNAPPROVED WAKET II'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_pembayaran');
+    }
+
+    public function Approved_waket2($id){
+        $data = [
+            'status' => 'UNAPPROVED KETUA'
+        ];
+        $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_pembayaran');
+    }
+
+    public function Approved_ketua($id){
+        $data = [
             'status' => 'APPROVED'
         ];
         $this->db->where('id',$id);
@@ -70,7 +88,7 @@ class Surat_pembayaran extends CI_Controller {
         redirect('Surat/Surat_pembayaran');
     }
 
-    public function Canceled_kabag($id){
+    public function Canceled($id){
         $data = [
             'status' => 'CANCELED'
         ];
