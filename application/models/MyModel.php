@@ -48,7 +48,7 @@ class MyModel extends CI_Model {
     // Surat
     
     public function get_surat_pembayaran(){
-        $this->db->order_by('no_surat', 'DESC');
+        $this->db->order_by('date', 'DESC');
         return $this->db->get_where('tbl_surat',['masuk_keluar' => 'Keluar'])->result_array();
     }
 
@@ -124,6 +124,43 @@ class MyModel extends CI_Model {
     // Anggaran
     public function add_anggaran($data_add){
         $this->db->insert('anggaran', $data_add);
+    }
+    public function sisa_anggaran($sisa_anggaran, $get_pos){
+        $this->db->where('pos',$get_pos);
+        $this->db->update('anggaran',['sisa_anggaran'=>$sisa_anggaran]);
+    }
+
+    // Kas
+    public function kas_keluar(){
+        $today = date('dmy',time());
+        $q = $this->db->query("SELECT MAX(RIGHT(no_kas,4)) AS kd_max FROM kas WHERE LEFT(no_kas,6) = $today");
+        $kd = "";
+        if($q->num_rows()>0){
+            foreach($q->result() as $k){
+                $tmp = ((int)$k->kd_max) + 1;
+                $kd = sprintf("/kk/%04s", $tmp);
+            }
+        }else{
+            $kd = "0001";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return date('dmy').$kd;
+    }
+
+    public function kas_masuk(){
+        $today = date('dmy',time());
+        $q = $this->db->query("SELECT MAX(RIGHT(no_kas,4)) AS kd_max FROM kas WHERE LEFT(no_kas,6) = $today");
+        $kd = "";
+        if($q->num_rows()>0){
+            foreach($q->result() as $k){
+                $tmp = ((int)$k->kd_max) + 1;
+                $kd = sprintf("/km/%04s", $tmp);
+            }
+        }else{
+            $kd = "0001";
+        }
+        date_default_timezone_set('Asia/Jakarta');
+        return date('dmy').$kd;
     }
 
 }

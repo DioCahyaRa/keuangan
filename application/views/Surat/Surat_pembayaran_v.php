@@ -79,9 +79,34 @@
                                             <?php } else{?>
                                               btn-success
                                             <?php };?>
-                                             " disabled><?= $row['status'];?></button></td>
+                                             " disabled><?= $row['status'];?></button>
+
+                                            <?php if($row['catatan'] && $user_ses['role'] == 'Account'):?>
+                                                <?php if( substr($row['catatan'],-2) == 'Ok'):?>
+                                                  <button type="button" class="btn btn-primary mt-2 mb-2" disabled><i class="mdi mdi-tooltip-edit" ></i>Catatan diperbaiki</button>
+                                                <?php else:?>
+                                                  <button type="button" class="btn btn-danger mt-2 mb-2" disabled><i class="mdi mdi-tooltip-edit" ></i>Ada Catatan</button>
+                                                <?php endif;?>
+                                            <?php endif;?>
+                                            
+                                            <?php if($row['catatan'] && $user_ses['role'] == 'Kabag'):?>
+                                                <?php if( substr($row['catatan'],-2) == 'Ok'):?>
+                                                  <button type="button" class="btn btn-primary mt-2 mb-2" disabled><i class="mdi mdi-tooltip-edit" ></i>Catatan diperbaiki</button>
+                                                <?php else:?>
+                                                  <button type="button" class="btn btn-danger mt-2 mb-2" disabled><i class="mdi mdi-tooltip-edit" ></i>Ada Catatan</button>
+                                                <?php endif;?>
+                                            <?php endif;?>
+
+
+                                            </td>
                                             <td>            
                                                 <button data-toggle="modal" data-target="#detail<?=$row['id'];?>" class="btn btn-primary mr-2"><i class="mdi mdi-details"></i> Detail </button>
+                                                <?php if($row['status'] == 'UNAPPROVED KABAG' && $user_ses['role'] == 'Account'):?>
+                                                    <button data-toggle="modal" data-target="#edit<?=$row['id'];?>" type="button" class="btn btn-success mt-2 mb-2"><i class="mdi mdi-tooltip-edit"></i> Edit</button>
+                                                <?php endif;?>
+                                                <?php if($row['status'] == 'UNAPPROVED KABAG' && $user_ses['role'] == 'Kabag'):?>
+                                                    <button data-toggle="modal" data-target="#catatan<?=$row['id'];?>" type="button" class="btn btn-danger mt-2 mb-2"><i class="mdi mdi-tooltip-edit"></i> Catatan</button>
+                                                <?php endif;?>
                                             </td>
                                         </tr>
                                         <?php endforeach;?>
@@ -268,15 +293,24 @@
             <input type="text" name="uraian" class="form-control" value="<?= $row['uraian']?>" readonly>
           </div>
 
+          <?php if ($row['catatan'] && $user_ses['role'] == 'Account' || $user_ses['role'] == 'Kabag'): ?>
+            <div class="form-group">
+            <label class="col-form-label">Catatan</label>
+            <input type="text" name="catatan" class="form-control" value="<?= $row['catatan']?>" readonly>
+          </div>
+          <?php endif;?>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-danger btn-oval"><i class="fa fa-print"> </i>To PDF</button>
+
             <?php if($row['status'] == 'UNAPPROVED KABAG' && $user_ses['role'] == 'Kabag'):?>
               <a href="<?php echo base_url().'Surat/Surat_pembayaran/Approved_kabag'.'/'.$row['id']; ?>">
                 <button type="button" class="btn btn-success mt-2 mb-2"><i class="mdi mdi-checkbox-marked-circle-outline"></i> Approved</button>
               </a>
               <a href="<?php echo base_url().'Surat/Surat_pembayaran/Canceled_kabag'.'/'.$row['id']; ?>">
               <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
+              </a>
             <?php endif;?>
 
             <?php if($row['status'] == 'UNAPPROVED WAKET II' && $user_ses['role'] == 'WAKET II'):?>
@@ -285,6 +319,7 @@
               </a>
               <a href="<?php echo base_url().'Surat/Surat_pembayaran/Canceled'.'/'.$row['id']; ?>">
               <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
+              </a>
             <?php endif;?>
 
             <?php if($row['status'] == 'UNAPPROVED KETUA' && $user_ses['role'] == 'Ketua'):?>
@@ -293,9 +328,143 @@
               </a>
               <a href="<?php echo base_url().'Surat/Surat_pembayaran/Canceled'.'/'.$row['id']; ?>">
               <button type="button" class="btn btn-danger"><i class="mdi mdi-close-octagon"></i> CANCELED</button>
+              </a>
             <?php endif;?>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endforeach;?>
+
+
+
+<?php
+    $no = 1;
+    foreach ($surat as $row): $no++;
+  ?>
+    <!-- Modal Edit -->
+    <div class="modal fade" id="edit<?=$row['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url('Surat/Surat_pembayaran/editSurat')?>" method="post">
+          <div class="form-group">
+            <label class="col-form-label">No Surat :</label>
+            <input type="text" name="no_surat" class="form-control" value="<?= $row['no_surat'];?>" required readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Jenis Biaya :</label>
+            <select class="form-control" name="jns_biaya" id="msk_klr" required>
+              <option value="" selected disabled >- <?= $row['jns_biaya']?> -</option>
+              <?php foreach($jns_biaya as $jns):?>
+                <option value="<?= $jns['jns_biaya'];?>"><?= $jns['jns_biaya'];?></option>
+              <?php endforeach;?>
+					  </select>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Kepada :</label>
+            <select class="form-control" name="kepada" required>
+              <option value="" selected disabled >- <?= $row['kepada']?> -</option>
+            <?php foreach($bagian as $bg):?>
+              <option value="<?= $bg['nama'];?>"><?= "(".$bg['bagian'].")"." ".$bg['nama'];?></option>
+            <?php endforeach;?>
+					  </select>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Pos Anggaran :</label>
+            <select class="form-control" name="pos" required>
+              <option value="" selected disabled >- <?= $row['pos_anggaran'] ?> -</option>
+            <?php foreach($pos as $jns):?>
+              <option value="<?= $jns['nama_pos'];?>"><?= $jns['nama_pos'];?></option>
+            <?php endforeach;?>
+					  </select>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Cara Pembayaran :</label>
+            <select class="form-control" name="cr_pem" required>
+              <option value="" selected disabled >- <?= $row['cara_pembayaran']?> -</option>
+              <option value="Tunai">Tunai</option>
+              <option value="Non Tunai">Non Tunai</option>
+					  </select>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Nominal :</label>
+            <input id="terbilang-input" class="mata-uang" type="number" name="nominal" value="<?= $row['nominal']?>" class="form-control" onkeyup="inputTerbilang();" required>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Terbilang :</label>
+            <input id="terbilang-output" type="text" name="terbilang" value="<?= $row['terbilang']?>" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Uraian :</label>
+            <input type="text" name="uraian" class="form-control" value="<?= $row['uraian']?>" required>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Catatan :</label>
+            <input type="text" name="catatan" class="form-control" value="<?= $row['catatan']?>">
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Edit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <?php endforeach;?> -->
+
+
+
+<?php
+    $no = 1;
+    foreach ($surat as $row): $no++;
+  ?>
+    <!-- Modal Catatan -->
+    <div class="modal fade" id="catatan<?=$row['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Beri Catatan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="<?= base_url('Surat/Surat_pembayaran/catatanSurat')?>" method="post">
+          <div class="form-group">
+            <label class="col-form-label">No Surat :</label>
+            <input type="text" name="no_surat" class="form-control" value="<?= $row['no_surat'];?>" required readonly>
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label">Catatan :</label>
+            <input type="text" name="catatan" class="form-control" required>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Catatan</button>
+          </div>
+        </form>
+
       </div>
     </div>
   </div>

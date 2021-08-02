@@ -81,7 +81,7 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li class="feed-item">
+                                        <!-- <li class="feed-item">
                                             <div class="feed-icon bg-success"><i class="ti-server"></i></div> Server #1
                                             overloaded.<span class="ml-auto font-12 text-muted">2 Hours ago</span>
                                         </li>
@@ -92,7 +92,7 @@
                                         <li class="feed-item">
                                             <div class="feed-icon bg-danger"><i class="ti-user"></i></div> New user
                                             registered.<span class="ml-auto font-12 text-muted">30 May</span>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </div>

@@ -8,7 +8,7 @@ class Surat_pembayaran extends CI_Controller {
         $this->load->model('MyModel');
     }
 
-    public function index(){
+    public function index(){ 
         $data['pos'] = $this->db->get('tbl_pos')->result_array();
         $data['no_surat']= $this->MyModel->get_no_surat();
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
@@ -54,6 +54,14 @@ class Surat_pembayaran extends CI_Controller {
         $this->load->library('pdf');
         $id = $this->input->post('id');
         $data['data'] = $this->db->get_where('tbl_surat', ['id'=>$id])->result_array();
+
+        // anggaran
+        $get_pos = $data['data'][0]['pos_anggaran'];
+        $data['realisasi'] = $data['data'][0]['nominal'];
+        $data_anggaran = $this->db->get_where('anggaran',['pos' => $get_pos])->result_array();
+        $data['anggaran'] = $data_anggaran[0]['anggaran'];
+        $data['sisa_anggaran'] = $data_anggaran[0]['sisa_anggaran'];
+
         $data['jabatan'] = $this->db->get('tbl_bagian')->result_array();
         $html = $this->load->view('Surat/Pdf_v', $data, true);
         $filename = 'report_'.time();
@@ -80,11 +88,33 @@ class Surat_pembayaran extends CI_Controller {
     }
 
     public function Approved_ketua($id){
+        $data_surat = $this->db->get_where('tbl_surat',['id'=>$id])->result_array();
+        if($data_surat[0]['masuk_keluar'] == 'Keluar'){
+            $no_kas = $this->MyModel->kas_keluar();
+        }
+        $data_kas = [
+            'no_kas' => $no_kas,
+            'nama_kas' => $data_surat[0]['pos_anggaran'],
+            'kredit' => (int)$data_surat[0]['nominal'],
+            'date' => time()
+        ];
+        $this->db->insert('kas', $data_kas);
+
+        $get_pos = $data_surat[0]['pos_anggaran'];
+        $data_anggaran = $this->db->get_where('anggaran',['pos' => $get_pos])->result_array();
+        $get_anggaran = $data_anggaran[0]['anggaran'];
+        $get_pengeluaran = $data_surat[0]['nominal'];
+        $sisa_anggaran = $get_anggaran - $get_pengeluaran;
+        $this->MyModel->sisa_anggaran($sisa_anggaran,$get_pos);
+        
+
         $data = [
             'status' => 'APPROVED'
         ];
         $this->db->where('id',$id);
         $this->db->update('tbl_surat',$data);
+
+        
         redirect('Surat/Surat_pembayaran');
     }
 
@@ -96,4 +126,45 @@ class Surat_pembayaran extends CI_Controller {
         $this->db->update('tbl_surat',$data);
         redirect('Surat/Surat_pembayaran');
     }
+
+    public function catatanSurat(){
+        $no_surat = $this->input->post('no_surat');
+
+        $data = [
+            'catatan' => $this->input->post('catatan')
+        ];
+
+        $this->db->where('no_surat',$no_surat);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_pembayaran');
+    }
+
+    public function editSurat(){
+        $no_surat = $this->input->post('no_surat');
+        $jns_biaya = $this->input->post('jns_biaya');
+        $kepada = $this->input->post('kepada');
+        $pos = $this->input->post('pos');
+        $cr_pem = $this->input->post('cr_pem');
+        $nominal = $this->input->post('nominal');
+        $terbilang = $this->input->post('terbilang');
+        $uraian = $this->input->post('uraian');
+        $catatan = $this->input->post('catatan');
+        $data = [
+            'jns_biaya' => $jns_biaya,
+            'kepada' => $kepada,
+            'pos_anggaran' => $pos,
+            'cara_pembayaran' => $cr_pem,
+            'nominal' => $nominal,
+            'terbilang' => $terbilang,
+            'uraian' => $uraian,
+            'date' => time(),
+            'catatan' => $catatan
+        ];
+
+        $this->db->where('no_surat', $no_surat);
+        $this->db->update('tbl_surat', $data);
+        redirect('Surat/Surat_pembayaran');
+    }
+
+    
 }

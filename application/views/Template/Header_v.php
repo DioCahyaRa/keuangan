@@ -162,7 +162,7 @@
 
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Bagian"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Master/Bagian')?>" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span
-                                    class="hide-menu">Bagian</span></a></li>
+                                    class="hide-menu">Kepada</span></a></li>
 
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Asal Dana"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Master/Asal_dana')?>" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span
@@ -180,6 +180,13 @@
                                 href="<?= base_url('Surat/Surat_penerimaan')?>" aria-expanded="false"><i class="mdi mdi-file-import"></i><span
                                     class="hide-menu">Surat Penerimaan</span></a></li>
 
+
+                        <hr class="border border-primary m-3">
+                        <span class="ml-3">Kas</span>
+
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Data Kas"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Kas/Kas_c')?>" aria-expanded="false"><i class="mdi mdi-account-multiple-plus"></i><span
+                                    class="hide-menu">Kas</span></a></li>
 
                         <hr class="border border-primary m-3">
                         <span class="ml-3">User</span>

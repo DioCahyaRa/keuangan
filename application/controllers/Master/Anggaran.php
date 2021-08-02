@@ -28,6 +28,7 @@ class Anggaran extends CI_Controller {
             'jns_trans' => $jns_trans,
             'pos' => $pos,
             'anggaran' => $anggaran,
+            'sisa_anggaran' => $anggaran,
             'tahun' => $tahun,
             'status' => 'Ok'
         ];

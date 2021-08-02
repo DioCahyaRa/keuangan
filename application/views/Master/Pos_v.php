@@ -36,8 +36,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Data Jenis Transaksi</h4>
-                                <h6 class="card-subtitle">Berikut adalah data Jenis Transaksi</h6>
+                                <h4 class="card-title">Data Pos Anggaran</h4>
+                                <h6 class="card-subtitle">Berikut adalah data Pos Anggaran</h6>
                                 <button class="btn btn-info mr-2" data-toggle="modal" data-target="#addModal"><i class="mdi mdi-plus-box-outline"></i> Tambah </button>
                             </div>
                             <div class="table-responsive p-20">

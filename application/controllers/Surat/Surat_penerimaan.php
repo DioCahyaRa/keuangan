@@ -78,6 +78,17 @@ class Surat_penerimaan extends CI_Controller {
     }
 
     public function Approved_ketua($id){
+        $data_surat = $this->db->get_where('tbl_surat',['id'=>$id])->result_array();
+        if($data_surat[0]['masuk_keluar'] == 'Masuk'){
+            $no_kas = $this->MyModel->kas_masuk();
+        }
+        $data_kas = [
+            'no_kas' => $no_kas,
+            'nama_kas' => $data_surat[0]['pos_anggaran'],
+            'debit' => (int)$data_surat[0]['nominal'],
+            'date' => time()
+        ];
+        $this->db->insert('kas', $data_kas);
         $data = [
             'status' => 'APPROVED'
         ];
@@ -91,6 +102,45 @@ class Surat_penerimaan extends CI_Controller {
             'status' => 'CANCELED'
         ];
         $this->db->where('id',$id);
+        $this->db->update('tbl_surat',$data);
+        redirect('Surat/Surat_penerimaan');
+    }
+
+    public function editSurat(){
+        $no_surat = $this->input->post('no_surat');
+        $jns_biaya = $this->input->post('jns_biaya');
+        $asal_dana = $this->input->post('asal_dana');
+        $pos = $this->input->post('pos');
+        $cr_pem = $this->input->post('cr_pem');
+        $nominal = $this->input->post('nominal');
+        $terbilang = $this->input->post('terbilang');
+        $uraian = $this->input->post('uraian');
+        $catatan = $this->input->post('catatan');
+        $data = [
+            'jns_biaya' => $jns_biaya,
+            'kepada' => $kepada,
+            'pos_anggaran' => $pos,
+            'cara_pembayaran' => $cr_pem,
+            'nominal' => $nominal,
+            'terbilang' => $terbilang,
+            'uraian' => $uraian,
+            'date' => time(),
+            'catatan' => $catatan
+        ];
+
+        $this->db->where('no_surat', $no_surat);
+        $this->db->update('tbl_surat', $data);
+        redirect('Surat/Surat_penerimaan');
+    }
+
+    public function catatanSurat(){
+        $no_surat = $this->input->post('no_surat');
+
+        $data = [
+            'catatan' => $this->input->post('catatan')
+        ];
+
+        $this->db->where('no_surat',$no_surat);
         $this->db->update('tbl_surat',$data);
         redirect('Surat/Surat_penerimaan');
     }

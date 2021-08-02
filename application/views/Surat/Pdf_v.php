@@ -118,10 +118,17 @@
                 <th colspan="2">Keterangan</th>
             </tr>
             <tr>
+            <?php if($datas['status']=='APPROVED'){?>
+                <td colspan="2">Rp. <?= number_format($anggaran).",-";?></td>
+                <td> Rp. <?= number_format($realisasi).",-";?></td>
+                <td> Rp. <?= number_format($sisa_anggaran).",-";?></td>
+                <td colspan="2"></td>
+            <?php }else{?>
                 <td colspan="2"></td>
                 <td></td>
                 <td></td>
                 <td colspan="2"></td>
+            <?php }?>
             </tr>
         </table>
         <p class="text-center">BUKTI HARUS DILAMPIRKAN</p>
