@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Bagian extends CI_Controller {
+class Kepada extends CI_Controller {
     public function __construct(){
         parent:: __construct();
         $this->load->model('MyModel');
@@ -9,14 +9,14 @@ class Bagian extends CI_Controller {
 
     public function index(){
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
-        $data['title'] = 'Bagian';
-        $data['bagian'] = $this->MyModel->get_bagian();
+        $data['title'] = 'Pihak ke 3';
+        $data['kepada'] = $this->MyModel->get_kepada();
         $this->load->view('Template/Header_v.php',$data);
-        $this->load->view('Master/Bagian_v.php',$data);
+        $this->load->view('Master/Kepada_v.php',$data);
         $this->load->view('Template/Footer_v.php');
     }
 
-    public function addBagian(){
+    public function addkepada(){
         $bagian = $this->input->post('bagian');
         $nama = $this->input->post('nama');
         
@@ -25,11 +25,11 @@ class Bagian extends CI_Controller {
             'nama' => $nama
         ];
 
-        $this->MyModel->addBagian($data_add);
-        redirect('Master/Bagian');
+        $this->MyModel->addkepada($data_add);
+        redirect('Master/Kepada');
     }
 
-    public function editBagian(){
+    public function editkepada(){
         $bagian = $this->input->post('bagian');
         $nama = $this->input->post('nama');
         $id = $this->input->post('id');
@@ -39,14 +39,14 @@ class Bagian extends CI_Controller {
             'nama' => $nama
         ];
         
-        $this->MyModel->editBagian($data_edit,$id);
-        redirect('Master/Bagian');
+        $this->MyModel->editkepada($data_edit,$id);
+        redirect('Master/Kepada');
     }
 
-    public function deleteBagian(){
+    public function deletekepada(){
         $id = $this->input->post('id');
 
-        $this->MyModel->deleteBagian($id);
-        redirect('Master/Bagian');
+        $this->MyModel->deletekepada($id);
+        redirect('Master/Kepada');
     }
 }

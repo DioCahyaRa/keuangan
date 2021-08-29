@@ -178,7 +178,7 @@
 					  </select>
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="col-form-label">Pos Anggaran :</label>
             <select class="form-control" name="pos" required>
               <option value="" selected disabled >- Pilih Pos -</option>
@@ -186,7 +186,7 @@
               <option value="<?= $jns['nama_pos'];?>"><?= $jns['nama_pos'];?></option>
             <?php endforeach;?>
 					  </select>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label class="col-form-label">Cara Pembayaran :</label>
@@ -256,10 +256,10 @@
             <input type="text" name="asal_dana" class="form-control" value="<?= $row['asal_dana']?>" readonly>
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="col-form-label">Pos Anggaran :</label>
             <input type="text" name="pos" class="form-control" value="<?= $row['pos_anggaran']?>" readonly>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label class="col-form-label">Cara Pembayaran</label>
@@ -357,7 +357,7 @@
 					  </select>
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="col-form-label">Pos Anggaran :</label>
             <select class="form-control" name="pos" required>
               <option value="" selected disabled >- <?= $row['pos_anggaran'] ?> -</option>
@@ -365,7 +365,7 @@
               <option value="<?= $jns['nama_pos'];?>"><?= $jns['nama_pos'];?></option>
             <?php endforeach;?>
 					  </select>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label class="col-form-label">Cara Pembayaran :</label>

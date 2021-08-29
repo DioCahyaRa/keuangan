@@ -36,8 +36,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Data Kas</h4>
-                                <h6 class="card-subtitle">Berikut adalah data Kas</h6>
+                                <h4 class="card-title"><?= $title?></h4>
+                                <h6 class="card-subtitle">Berikut adalah <?= $title?></h6>
                             </div>
                             <div class="table-responsive p-20">
                             <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
@@ -46,6 +46,7 @@
                                         <tr>
                                             <th scope="col">NO</th>
                                             <th scope="col">NO KAS</th>
+                                            <th scope="col">NO SURAT</th>
                                             <th scope="col">NAMA KAS</th>
                                             <th scope="col">DEBIT</th>
                                             <th scope="col">KREDIT</th>
@@ -55,10 +56,11 @@
                                     <tbody>
                                         <?php
                                         $no=1;
-                                         foreach ($kas as $row) :?>
+                                         foreach ($laporan as $row) :?>
                                         <tr>
                                             <th scope="row"><?= $no++;?></th>
                                             <td><?= $row['no_kas'];?></td>
+                                            <td><?= $row['no_surat'];?></td>
                                             <td><?= $row['nama_kas'];?></td>
                                             <td>Rp. <?= number_format($row['debit']).",-";?></td>
                                             <td>Rp. <?= number_format($row['kredit']).",-";?></td>

@@ -38,7 +38,9 @@
                             <div class="card-body">
                                 <h4 class="card-title">Data Asal Dana</h4>
                                 <h6 class="card-subtitle">Berikut adalah data Asal Dana</h6>
+                                <?php if($user_ses['role'] == 'Account'):?>
                                 <button class="btn btn-info mr-2" data-toggle="modal" data-target="#addModal"><i class="mdi mdi-plus-box-outline"></i> Tambah </button>
+                                <?php endif;?>
                             </div>
                             <div class="table-responsive p-20">
                             <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
@@ -49,7 +51,9 @@
                                             <th scope="col">Nama</th>
                                             <th scope="col">Alamat</th>
                                             <th scope="col">Nomor Telephone</th>
+                                            <?php if($user_ses['role'] == 'Account'):?>
                                             <th scope="col">ACTION</th>
+                                            <?php endif;?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,10 +65,12 @@
                                             <td><?= $row['nama'];?></td>
                                             <td><?= $row['alamat'];?></td>
                                             <td><?= $row['no_telp'];?></td>
+                                            <?php if($user_ses['role'] == 'Account'):?>
                                             <td>            
                                                 <button data-toggle="modal" data-target="#editModal<?=$row['id'];?>" class="btn btn-success mr-2"><i class="mdi mdi-tooltip-edit"></i> Edit </button>
                                                 <button data-toggle="modal" data-target="#deleteModal<?=$row['id'];?>" class="btn btn-danger"><i class="mdi mdi-delete-circle"></i> Delete</button>
                                             </td>
+                                            <?php endif;?>
                                         </tr>
                                         <?php endforeach;?>
                                     </tbody>

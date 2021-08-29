@@ -2,8 +2,8 @@
 
 class MyModel extends CI_Model {
 
-    public function update_user($data_user){
-        $this->db->where('email', $data_user['email']);
+    public function update_user($data_user,$user){
+        $this->db->where('username', $user['username']);
         $this->db->update('user',$data_user);
     }
 
@@ -26,23 +26,23 @@ class MyModel extends CI_Model {
         $this->db->delete('jns_trans');
     }
     
-    // Bagian
-    public function get_bagian(){
-        return $this->db->get_where('tbl_bagian')->result_array();
+    // kepada
+    public function get_kepada(){
+        return $this->db->get_where('tbl_kepada')->result_array();
     }
     
-    public function addBagian($data_add){
-        $this->db->insert('tbl_bagian', $data_add);
+    public function addkepada($data_add){
+        $this->db->insert('tbl_kepada', $data_add);
     }
     
-    public function editBagian($data_edit,$id){
+    public function editkepada($data_edit,$id){
         $this->db->where('id',$id);
-        $this->db->update('tbl_bagian', $data_edit);
+        $this->db->update('tbl_kepada', $data_edit);
     }
 
-    public function deleteBagian($id){
+    public function deletekepada($id){
         $this->db->where('id',$id);
-        $this->db->delete('tbl_bagian');
+        $this->db->delete('tbl_kepada');
     }
 
     // Surat
@@ -125,15 +125,19 @@ class MyModel extends CI_Model {
     public function add_anggaran($data_add){
         $this->db->insert('anggaran', $data_add);
     }
-    public function sisa_anggaran($sisa_anggaran, $get_pos){
+    public function sisa_anggaran($hasil_anggaran, $get_pos){
         $this->db->where('pos',$get_pos);
-        $this->db->update('anggaran',['sisa_anggaran'=>$sisa_anggaran]);
+        $this->db->update('anggaran',['sisa_anggaran'=>$hasil_anggaran]);
+    }
+    
+    public function get_nama_pos($jns_trans){
+        return $this->db->get_where('tbl_pos',['jns_trans' => $jns_trans])->result();
     }
 
-    // Kas
+    // Laporan
     public function kas_keluar(){
         $today = date('dmy',time());
-        $q = $this->db->query("SELECT MAX(RIGHT(no_kas,4)) AS kd_max FROM kas WHERE LEFT(no_kas,6) = $today");
+        $q = $this->db->query("SELECT MAX(RIGHT(no_kas,4)) AS kd_max FROM laporan WHERE LEFT(no_kas,6) = $today");
         $kd = "";
         if($q->num_rows()>0){
             foreach($q->result() as $k){
@@ -149,7 +153,7 @@ class MyModel extends CI_Model {
 
     public function kas_masuk(){
         $today = date('dmy',time());
-        $q = $this->db->query("SELECT MAX(RIGHT(no_kas,4)) AS kd_max FROM kas WHERE LEFT(no_kas,6) = $today");
+        $q = $this->db->query("SELECT MAX(RIGHT(no_kas,4)) AS kd_max FROM laporan WHERE LEFT(no_kas,6) = $today");
         $kd = "";
         if($q->num_rows()>0){
             foreach($q->result() as $k){
@@ -161,6 +165,11 @@ class MyModel extends CI_Model {
         }
         date_default_timezone_set('Asia/Jakarta');
         return date('dmy').$kd;
+    }
+
+    public function getLaporan(){
+        $this->db->order_by('id_laporan', 'DESC');
+        return $this->db->get('laporan')->result_array();
     }
 
 }

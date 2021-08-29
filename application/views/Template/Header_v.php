@@ -160,8 +160,8 @@
                                 href="<?= base_url('Master/Pos')?>"><i class="mdi mdi-dns"></i><span
                                     class="hide-menu">Data Pos</span></a></li>
 
-                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Bagian"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
-                                href="<?= base_url('Master/Bagian')?>" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Pihak ke 3"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Master/Kepada')?>" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span
                                     class="hide-menu">Kepada</span></a></li>
 
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Asal Dana"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
@@ -182,11 +182,11 @@
 
 
                         <hr class="border border-primary m-3">
-                        <span class="ml-3">Kas</span>
+                        <span class="ml-3">Data Laporan</span>
 
-                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Data Kas"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
-                                href="<?= base_url('Kas/Kas_c')?>" aria-expanded="false"><i class="mdi mdi-account-multiple-plus"></i><span
-                                    class="hide-menu">Kas</span></a></li>
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Data Laporan"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Kas/Data_Laporan')?>" aria-expanded="false"><i class="mdi mdi-account-multiple-plus"></i><span
+                                    class="hide-menu">Data Laporan</span></a></li>
 
                         <hr class="border border-primary m-3">
                         <span class="ml-3">User</span>

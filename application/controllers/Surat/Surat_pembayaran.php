@@ -12,7 +12,7 @@ class Surat_pembayaran extends CI_Controller {
         $data['pos'] = $this->db->get('tbl_pos')->result_array();
         $data['no_surat']= $this->MyModel->get_no_surat();
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
-        $data['bagian'] = $this->db->get('tbl_bagian')->result_array();
+        $data['bagian'] = $this->db->get('tbl_kepada')->result_array();
         $data['jns_biaya'] = $this->db->get('jns_biaya')->result_array();
         $data['title'] = 'Surat Pembayaran';
         $data['surat'] = $this->MyModel->get_surat_pembayaran();
@@ -62,7 +62,7 @@ class Surat_pembayaran extends CI_Controller {
         $data['anggaran'] = $data_anggaran[0]['anggaran'];
         $data['sisa_anggaran'] = $data_anggaran[0]['sisa_anggaran'];
 
-        $data['jabatan'] = $this->db->get('tbl_bagian')->result_array();
+        $data['jabatan'] = $this->db->get('tbl_kepada')->result_array();
         $html = $this->load->view('Surat/Pdf_v', $data, true);
         $filename = 'report_'.time();
         $this->pdf->generate($html, $filename, true, 'A4', 'landscape');  
@@ -94,18 +94,19 @@ class Surat_pembayaran extends CI_Controller {
         }
         $data_kas = [
             'no_kas' => $no_kas,
+            'no_surat' => $data_surat[0]['no_surat'],
             'nama_kas' => $data_surat[0]['pos_anggaran'],
             'kredit' => (int)$data_surat[0]['nominal'],
             'date' => time()
         ];
-        $this->db->insert('kas', $data_kas);
+        $this->db->insert('laporan', $data_kas);
 
         $get_pos = $data_surat[0]['pos_anggaran'];
         $data_anggaran = $this->db->get_where('anggaran',['pos' => $get_pos])->result_array();
-        $get_anggaran = $data_anggaran[0]['anggaran'];
+        $sisa_anggaran = $data_anggaran[0]['sisa_anggaran'];
         $get_pengeluaran = $data_surat[0]['nominal'];
-        $sisa_anggaran = $get_anggaran - $get_pengeluaran;
-        $this->MyModel->sisa_anggaran($sisa_anggaran,$get_pos);
+        $hasil_anggaran = $sisa_anggaran - $get_pengeluaran;
+        $this->MyModel->sisa_anggaran($hasil_anggaran,$get_pos);
         
 
         $data = [

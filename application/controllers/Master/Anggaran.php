@@ -36,4 +36,10 @@ class Anggaran extends CI_Controller {
         $this->MyModel->add_anggaran($data_add);
         redirect('Master/Anggaran');
     }
+
+    public function data_pos_anggaran(){
+        $jns_trans = $this->input->post('jns_trans');
+        $nama_pos = $this->MyModel->get_nama_pos($jns_trans);
+        echo json_encode($nama_pos); 
+    }
 }

@@ -25,7 +25,7 @@ class Surat_penerimaan extends CI_Controller {
         $jns_biaya = $this->input->post('jns_biaya');
         $no_surat = $this->input->post('no_surat');
         $asal_dana = $this->input->post('asal_dana');
-        $pos = $this->input->post('pos');
+        // $pos = $this->input->post('pos');
         $cr_pem = $this->input->post('cr_pem');
         $nominal = $this->input->post('nominal');
         $terbilang = $this->input->post('terbilang');
@@ -36,7 +36,7 @@ class Surat_penerimaan extends CI_Controller {
             'jns_biaya' => $jns_biaya,
             'masuk_keluar' => 'Masuk',
             'asal_dana' => $asal_dana,
-            'pos_anggaran' => $pos,
+            // 'pos_anggaran' => $pos,
             'cara_pembayaran' => $cr_pem,
             'nominal' => $nominal,
             'terbilang' => $terbilang,
@@ -53,7 +53,7 @@ class Surat_penerimaan extends CI_Controller {
         $this->load->library('pdf');
         $id = $this->input->post('id');
         $data['data'] = $this->db->get_where('tbl_surat', ['id'=>$id])->result_array();
-        $data['jabatan'] = $this->db->get('tbl_bagian')->result_array();
+        $data['jabatan'] = $this->db->get('tbl_kepada')->result_array();
         $html = $this->load->view('Surat/Pdf_masuk_v', $data, true);
         $filename = 'report_'.time();
         $this->pdf->generate($html, $filename, true, 'A4', 'landscape');
@@ -82,13 +82,15 @@ class Surat_penerimaan extends CI_Controller {
         if($data_surat[0]['masuk_keluar'] == 'Masuk'){
             $no_kas = $this->MyModel->kas_masuk();
         }
+
         $data_kas = [
             'no_kas' => $no_kas,
+            'no_surat' => $data_surat[0]['no_surat'],
             'nama_kas' => $data_surat[0]['pos_anggaran'],
             'debit' => (int)$data_surat[0]['nominal'],
             'date' => time()
         ];
-        $this->db->insert('kas', $data_kas);
+        $this->db->insert('laporan', $data_kas);
         $data = [
             'status' => 'APPROVED'
         ];
@@ -110,7 +112,7 @@ class Surat_penerimaan extends CI_Controller {
         $no_surat = $this->input->post('no_surat');
         $jns_biaya = $this->input->post('jns_biaya');
         $asal_dana = $this->input->post('asal_dana');
-        $pos = $this->input->post('pos');
+        // $pos = $this->input->post('pos');
         $cr_pem = $this->input->post('cr_pem');
         $nominal = $this->input->post('nominal');
         $terbilang = $this->input->post('terbilang');
@@ -119,7 +121,7 @@ class Surat_penerimaan extends CI_Controller {
         $data = [
             'jns_biaya' => $jns_biaya,
             'kepada' => $kepada,
-            'pos_anggaran' => $pos,
+            // 'pos_anggaran' => $pos,
             'cara_pembayaran' => $cr_pem,
             'nominal' => $nominal,
             'terbilang' => $terbilang,

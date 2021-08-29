@@ -54,6 +54,33 @@
         return false;
     });
     </script>
+
+<!-- Auto Pos Anggaran  -->
+<script>
+    $(document).ready(function(){
+        $('#jns_trans').change(function(){
+            var jns_trans=$(this).val();
+            $.ajax({
+                url : "<?php echo base_url('Master/Anggaran/data_pos_anggaran');?>",
+                method : "POST",
+                data : {jns_trans: jns_trans},
+                async : false,
+                dataType : 'json',
+                success: function(data){
+                    var isi = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                      isi += `<option value="${data[i].nama_pos}">${data[i].nama_pos}</option>`;
+                    }
+                    $('#nama_pos').html(isi);
+
+                }
+            });
+        });
+    });
+  </script>
+
+    
 </body>
 
 </html>

@@ -36,9 +36,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Data Bagian</h4>
-                                <h6 class="card-subtitle">Berikut adalah data Bagian</h6>
+                                <h4 class="card-title">Data <?= $title?></h4>
+                                <h6 class="card-subtitle">Berikut adalah data <?= $title?></h6>
+                                <?php if($user_ses['role'] == 'Account'):?>
                                 <button class="btn btn-info mr-2" data-toggle="modal" data-target="#addModal"><i class="mdi mdi-plus-box-outline"></i> Tambah </button>
+                                <?php endif;?>
                             </div>
                             <div class="table-responsive p-20">
                             <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
@@ -46,23 +48,27 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">NO</th>
-                                            <th scope="col">BAGIAN</th>
+                                            <th scope="col">Bagian</th>
                                             <th scope="col">NAMA</th>
+                                            <?php if($user_ses['role'] == 'Account'):?>
                                             <th scope="col">ACTION</th>
+                                            <?php endif;?>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $no=1;
-                                         foreach ($bagian as $row) :?>
+                                         foreach ($kepada as $row) :?>
                                         <tr>
                                             <th scope="row"><?= $no++;?></th>
                                             <td><?= $row['bagian'];?></td>
                                             <td><?= $row['nama'];?></td>
+                                            <?php if($user_ses['role'] == 'Account'):?>
                                             <td>            
                                                 <button data-toggle="modal" data-target="#editModal<?=$row['id'];?>" class="btn btn-success mr-2"><i class="mdi mdi-tooltip-edit"></i> Edit </button>
                                                 <button data-toggle="modal" data-target="#deleteModal<?=$row['id'];?>" class="btn btn-danger"><i class="mdi mdi-delete-circle"></i> Delete</button>
                                             </td>
+                                            <?php endif;?>
                                         </tr>
                                         <?php endforeach;?>
                                     </tbody>
@@ -114,7 +120,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('Master/Bagian/addBagian')?>" method="post">
+        <form action="<?= base_url('Master/kepada/addkepada')?>" method="post">
           <div class="form-group">
             <label class="col-form-label">Bagian :</label>
             <input type="text" name="bagian" class="form-control" required>
@@ -137,7 +143,7 @@
 
 <?php
     $no = 1;
-    foreach ($bagian as $row): $no++;
+    foreach ($kepada as $row): $no++;
   ?>
     <!-- Modal Edit -->
     <div class="modal fade" id="editModal<?=$row['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -150,12 +156,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('Master/Bagian/editBagian')?>" method="post">
+        <form action="<?= base_url('Master/kepada/editkepada')?>" method="post">
 
         <input type="hidden" name="id" class="form-control" value="<?= $row['id'];?>">
         
           <div class="form-group">
-            <label class="col-form-label">Bagian :</label>
+            <label class="col-form-label">bagian :</label>
             <input type="text" name="bagian" class="form-control" value="<?= $row['bagian'];?>" required>
           </div>
 
@@ -178,7 +184,7 @@
 
 <?php
     $no = 1;
-    foreach ($bagian as $row): $no++;
+    foreach ($kepada as $row): $no++;
   ?>
     <!-- Modal Delete -->
     <div class="modal fade" id="deleteModal<?=$row['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -191,10 +197,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="<?= base_url('Master/Bagian/deleteBagian')?>" method="post">
+        <form action="<?= base_url('Master/kepada/deletekepada')?>" method="post">
 
         <input type="hidden" name="id" class="form-control" value="<?= $row['id'];?>">
-        <p>Apkah anda yakin Mneghapus data Jenis Transaksi <strong> <?= $row['bagian']?> </strong> nama pos <strong> <?= $row['nama']?> </strong> ?</p>
+        <p>Apkah anda yakin Mneghapus data <strong> <?= $row['nama']?> </strong></p>
         
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

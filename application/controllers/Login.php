@@ -10,7 +10,7 @@ class Login extends CI_Controller {
 	public function index()
 	{
         if($this->session->userdata('username')){
-            redirect('Page/Profile');
+            redirect('Page/Dashboard');
         }else{
             $this->load->view('Login_v');
         }
@@ -77,7 +77,7 @@ class Login extends CI_Controller {
                 ];
                 $this->session->set_userdata($data_user);
                 $this->session->set_flashdata('msg-succcess','<script>Swal.fire("","Success Login","success")</script>');
-                redirect('Page/Profile');
+                redirect('Page/Dashboard');
             }else{
                 $this->session->set_flashdata('msg-succcess','<script>Swal.fire("","Username atau Password Salah","error")</script>');
                 redirect('Login');

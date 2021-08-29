@@ -38,7 +38,6 @@
                                 <center class="m-t-30"> <img src="<?= base_url('Assets/dashboard/')?>images/users/1.jpg"
                                         class="rounded-circle" width="150" />
                                     <h4 class="card-title m-t-10"><?= $user_ses['nama'];?></h4>
-                                    <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
                                 </center>
                             </div>
                             <div>
@@ -57,7 +56,7 @@
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
                             <div class="card-body">
-                                <form action="<?= base_url('Page/Dashboard/update_profile')?>" class="form-horizontal form-material" method="post">
+                                <form action="<?= base_url('Page/Profile/update_profile')?>" class="form-horizontal form-material" method="post">
                                     <div class="form-group">
                                         <label class="col-md-12">Full Name</label>
                                         <div class="col-md-12">

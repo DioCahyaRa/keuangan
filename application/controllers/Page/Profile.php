@@ -29,14 +29,15 @@ class Profile extends CI_Controller {
         }else{
             $name = $this->input->post('nama');
             $email = $this->input->post('email');
+            $user = $this->session->userdata();
 
             $data_update = [
                 'nama' => $name,
                 'email' => $email
             ];
 
-            $this->MyModel->update_user($data_update);
-            redirect('Page/Dashboard');
+            $this->MyModel->update_user($data_update,$user);
+            redirect('Page/Profile');
         }
     }
 }
