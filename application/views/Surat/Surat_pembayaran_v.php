@@ -65,7 +65,7 @@
                                             <td><?= $row['jns_biaya'];?></td>
                                             <td><?= $row['kepada'];?></td>
                                             <td><?= $row['pos_anggaran'];?></td>
-                                            <td><?= date('d-M-Y',$row['date']);?></td>
+                                            <td><?= $row['date'];?></td>
                                             <td> <button class="btn
                                              
                                             <?php if($row['status'] == 'CANCELED'){?> 

@@ -38,6 +38,17 @@
                             <div class="card-body">
                                 <h4 class="card-title"><?= $title?></h4>
                                 <h6 class="card-subtitle">Berikut adalah <?= $title?></h6>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <a href="<?= base_url('Kas/Data_laporan/to_pdf_harian')?>"><div class="btn btn-success">Laporan Harian</div></a>
+                                        <div class="btn btn-info">Laporan Per Tanggal</div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                    <div class="col-lg-4 center">
+                                        <h3>SALDO : <strong>Rp. <?= number_format($saldo).",-";?></strong></h3>
+                                    </div>
+                                </div>
                             </div>
                             <div class="table-responsive p-20">
                             <table id="example" class="table table-striped table-bordered text-center" style="width:100%">

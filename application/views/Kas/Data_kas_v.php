@@ -59,7 +59,7 @@
                                             <th scope="row"><?= $no++;?></th>
                                             <td><?= $row['no_kas'];?></td>
                                             <td><?= $row['nama_cek'];?></td>
-                                            <td><?= date('d-M-Y',$row['tgl']);?></td>
+                                            <td><?= $row['tgl'];?></td>
                                             <td>Rp. <?= number_format($row['saldo']).",-";?></td>
                                         </tr>
                                         <?php endforeach;?>

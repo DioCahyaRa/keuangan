@@ -41,7 +41,7 @@ class Surat_penerimaan extends CI_Controller {
             'nominal' => $nominal,
             'terbilang' => $terbilang,
             'uraian' => $uraian,
-            'date' => time(),
+            'date' => date('d-M-Y',time()),
             'status' => 'UNAPPROVED KABAG'
         ];
 
@@ -111,7 +111,7 @@ class Surat_penerimaan extends CI_Controller {
         $data_kas = [
             'no_kas' => $no_kas,
             'nama_cek' => 'KAS',
-            'tgl' => time(),
+            'tgl' => date('d-M-Y',time()),
             'saldo' => $tambah_saldo
         ];
         $this->db->insert('tbl_kas', $data_kas);
@@ -120,9 +120,9 @@ class Surat_penerimaan extends CI_Controller {
         $data_laporan = [
             'no_kas' => $no_kas,
             'no_surat' => $data_surat[0]['no_surat'],
-            'nama_kas' => $data_surat[0]['pos_anggaran'],
+            'nama_kas' => $data_surat[0]['jns_biaya'],
             'debit' => (int)$data_surat[0]['nominal'],
-            'date' => time()
+            'date' => date('d-M-Y',time())
         ];
         $this->db->insert('laporan', $data_laporan);
 
@@ -162,7 +162,7 @@ class Surat_penerimaan extends CI_Controller {
             'nominal' => $nominal,
             'terbilang' => $terbilang,
             'uraian' => $uraian,
-            'date' => time(),
+            'date' => date('d-M-Y',time()),
             'catatan' => $catatan
         ];
 

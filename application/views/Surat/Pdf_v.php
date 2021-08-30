@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <th>Tanggal</th>
-                <td>: <?= date('d-M-Y',$date);?></td>
+                <td>: <?= $date;?></td>
             </tr>
             <tr>
                 <th>Cara Bayar</th>

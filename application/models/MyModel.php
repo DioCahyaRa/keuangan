@@ -48,12 +48,12 @@ class MyModel extends CI_Model {
     // Surat
     
     public function get_surat_pembayaran(){
-        $this->db->order_by('date', 'DESC');
+        $this->db->order_by('id', 'DESC');
         return $this->db->get_where('tbl_surat',['masuk_keluar' => 'Keluar'])->result_array();
     }
 
     public function get_surat_pemasukan(){
-        $this->db->order_by('date', 'DESC');
+        $this->db->order_by('id', 'DESC');
         return $this->db->get_where('tbl_surat',['masuk_keluar' => 'Masuk'])->result_array();
     }
 
@@ -170,6 +170,32 @@ class MyModel extends CI_Model {
     public function getLaporan(){
         $this->db->order_by('id_laporan', 'DESC');
         return $this->db->get('laporan')->result_array();
+    }
+
+    // to PDF Laporan Harian
+    public function laporan_harian($date){
+        $this->db->join('laporan','laporan.no_surat=tbl_surat.no_surat');
+        $this->db->from('tbl_surat');
+        $this->db->join('tbl_kas','tbl_kas.no_kas=laporan.no_kas');
+        $this->db->where('tbl_surat.status','APPROVED');
+        $this->db->where('tbl_surat.date', $date);
+        return $this->db->get();
+    }
+
+    public function count_debit(){
+        $date = date('d-M-Y',time());
+        $this->db->select_sum('nominal');
+        $this->db->where('masuk_keluar','Masuk');
+        $this->db->where('date',$date);
+        return $this->db->get('tbl_surat');
+    }
+
+    public function count_kredit(){
+        $date = date('d-M-Y',time());
+        $this->db->select_sum('nominal');
+        $this->db->where('masuk_keluar','kredit');
+        $this->db->where('date',$date);
+        return $this->db->get('tbl_surat');
     }
 
     // Kas
