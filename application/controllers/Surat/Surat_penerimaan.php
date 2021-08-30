@@ -53,6 +53,21 @@ class Surat_penerimaan extends CI_Controller {
         $this->load->library('pdf');
         $id = $this->input->post('id');
         $data['data'] = $this->db->get_where('tbl_surat', ['id'=>$id])->result_array();
+        $no_surat = $data['data'][0]['no_surat'];
+        $data['no_surat'] = $no_surat;
+
+        // kas
+        $get_laporan = $this->db->get_where('laporan',['no_surat' => $no_surat])->result_array();
+        if ($get_laporan) {
+            foreach($get_laporan as $kas){
+                $no_kas = $kas['no_kas'];
+            }
+        }else{
+            $no_kas = 'Belum Approved';
+        }
+        $data['no_kas'] = $no_kas;
+        $data['date'] = $data['data'][0]['date'];
+
         $data['jabatan'] = $this->db->get('tbl_kepada')->result_array();
         $html = $this->load->view('Surat/Pdf_masuk_v', $data, true);
         $filename = 'report_'.time();
@@ -79,18 +94,39 @@ class Surat_penerimaan extends CI_Controller {
 
     public function Approved_ketua($id){
         $data_surat = $this->db->get_where('tbl_surat',['id'=>$id])->result_array();
+        $nominal = (int)$data_surat[0]['nominal'];
         if($data_surat[0]['masuk_keluar'] == 'Masuk'){
             $no_kas = $this->MyModel->kas_masuk();
         }
 
+        // insert to kas
+        $get_kas = $this->MyModel->saldo_kas()->result_array();
+        if ($get_kas) {
+            foreach($get_kas as $saldo){
+                $tambah_saldo = (int)$saldo['saldo'] + $nominal;
+            }
+        }else{
+            $tambah_saldo = $nominal;
+        }
         $data_kas = [
+            'no_kas' => $no_kas,
+            'nama_cek' => 'KAS',
+            'tgl' => time(),
+            'saldo' => $tambah_saldo
+        ];
+        $this->db->insert('tbl_kas', $data_kas);
+
+        // insert to laporan
+        $data_laporan = [
             'no_kas' => $no_kas,
             'no_surat' => $data_surat[0]['no_surat'],
             'nama_kas' => $data_surat[0]['pos_anggaran'],
             'debit' => (int)$data_surat[0]['nominal'],
             'date' => time()
         ];
-        $this->db->insert('laporan', $data_kas);
+        $this->db->insert('laporan', $data_laporan);
+
+        // update status to data surat penerimaan
         $data = [
             'status' => 'APPROVED'
         ];

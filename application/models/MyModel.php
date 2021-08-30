@@ -172,4 +172,14 @@ class MyModel extends CI_Model {
         return $this->db->get('laporan')->result_array();
     }
 
+    // Kas
+    public function getKas(){
+        $this->db->order_by('id_kas', 'DESC');
+        return $this->db->get('tbl_kas')->result_array();
+    }
+
+    public function saldo_kas(){
+        return $query = $this->db->query("SELECT saldo FROM tbl_kas ORDER BY id_kas DESC LIMIT 1");
+    }
+
 }

@@ -167,6 +167,10 @@
                         <li class="sidebar-item ml-1"> <a class="<?php if($title == "Asal Dana"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
                                 href="<?= base_url('Master/Asal_dana')?>" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span
                                     class="hide-menu">Asal Dana</span></a></li>
+
+                        <li class="sidebar-item ml-1"> <a class="<?php if($title == "Data Kas"):?>Active <?php endif;?> sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('Kas/Kas')?>" aria-expanded="false"><i class="mdi mdi-account-card-details"></i><span
+                                    class="hide-menu">KAS</span></a></li>
                                     
                                     
                         <hr class="border border-primary m-3">

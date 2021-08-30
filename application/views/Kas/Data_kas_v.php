@@ -36,8 +36,8 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Data Data Kas</h4>
-                                <h6 class="card-subtitle">Berikut adalah data Data Kas</h6>
+                                <h4 class="card-title">Data Kas</h4>
+                                <h6 class="card-subtitle">Berikut adalah Data Kas</h6>
                             </div>
                             <div class="table-responsive p-20">
                             <table id="example" class="table table-striped table-bordered text-center" style="width:100%">
@@ -59,8 +59,8 @@
                                             <th scope="row"><?= $no++;?></th>
                                             <td><?= $row['no_kas'];?></td>
                                             <td><?= $row['nama_cek'];?></td>
-                                            <td><?= $row['tgl'];?></td>
-                                            <td><?= $row['saldo'];?></td>
+                                            <td><?= date('d-M-Y',$row['tgl']);?></td>
+                                            <td>Rp. <?= number_format($row['saldo']).",-";?></td>
                                         </tr>
                                         <?php endforeach;?>
                                     </tbody>

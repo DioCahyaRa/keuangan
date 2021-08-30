@@ -30,9 +30,12 @@
 
         <table class="table-2" style="width:30%">
             <tr>
-                <th> </th>
-                <td> </td> 
-                
+                <th>Nomor Kas</th>
+                <td>: <?= $no_kas?></td>
+            </tr>
+            <tr>
+                <th>Tanggal</th>
+                <td>: <?= date('d-M-Y',$date);?></td>
             </tr>
             <tr>
                 <th>Cara Bayar</th>
@@ -56,12 +59,12 @@
     <div class="table-core">
         <table class="table text-center table-bordered" style="width:100%; font-size:15px;">
             <tr>
-                <th colspan="2">No. Perkiraan</th>
+                <th colspan="2">No. Surat</th>
                 <th colspan="2">Uraian</th>
                 <th colspan="2">Jumlah</th>
             </tr>
             <tr>
-                <td colspan="2"></td>
+                <td colspan="2"><?=  $no_surat?></td>
                 <td colspan="2"><?= $datas['uraian'];?></td>
                 <td colspan="2">Rp. <?= number_format($datas['nominal']).",-";?></td> 
             </tr>

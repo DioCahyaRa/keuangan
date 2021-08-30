@@ -62,6 +62,21 @@ class Surat_pembayaran extends CI_Controller {
         $data['anggaran'] = $data_anggaran[0]['anggaran'];
         $data['sisa_anggaran'] = $data_anggaran[0]['sisa_anggaran'];
 
+        $no_surat = $data['data'][0]['no_surat'];
+        $data['no_surat'] = $no_surat;
+
+        // kas
+        $get_laporan = $this->db->get_where('laporan',['no_surat' => $no_surat])->result_array();
+        if ($get_laporan) {
+            foreach($get_laporan as $kas){
+                $no_kas = $kas['no_kas'];
+            }
+        }else{
+            $no_kas = 'Belum Approved';
+        }
+        $data['no_kas'] = $no_kas;
+
+        $data['date'] = $data['data'][0]['date'];
         $data['jabatan'] = $this->db->get('tbl_kepada')->result_array();
         $html = $this->load->view('Surat/Pdf_v', $data, true);
         $filename = 'report_'.time();
@@ -89,9 +104,31 @@ class Surat_pembayaran extends CI_Controller {
 
     public function Approved_ketua($id){
         $data_surat = $this->db->get_where('tbl_surat',['id'=>$id])->result_array();
+        $nominal = (int)$data_surat[0]['nominal'];
+
         if($data_surat[0]['masuk_keluar'] == 'Keluar'){
             $no_kas = $this->MyModel->kas_keluar();
         }
+
+        // insert to kas
+        $get_kas = $this->MyModel->saldo_kas()->result_array();
+        if ($get_kas) {
+            foreach($get_kas as $saldo){
+                $kurang_saldo = (int)$saldo['saldo'] - $nominal;
+            }
+        }else{
+            $kurang_saldo = $nominal;
+        }
+        $data_kas = [
+            'no_kas' => $no_kas,
+            'nama_cek' => 'KAS',
+            'tgl' => time(),
+            'saldo' => $kurang_saldo
+        ];
+
+        $this->db->insert('tbl_kas', $data_kas);
+
+
         $data_kas = [
             'no_kas' => $no_kas,
             'no_surat' => $data_surat[0]['no_surat'],
