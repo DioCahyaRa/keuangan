@@ -6,6 +6,7 @@ class Surat_pembayaran extends CI_Controller {
         parent:: __construct();
         $this->load->library('form_validation');
         $this->load->model('MyModel');
+        date_default_timezone_set('Asia/Jakarta'); // Defined City For Timezone
     }
 
     public function index(){ 
@@ -42,7 +43,7 @@ class Surat_pembayaran extends CI_Controller {
             'nominal' => $nominal,
             'terbilang' => $terbilang,
             'uraian' => $uraian,
-            'date' => date('d-M-Y',time()),
+            'date' =>  date("Y-m-d"),
             'status' => 'UNAPPROVED KABAG'
         ];
 
@@ -122,7 +123,7 @@ class Surat_pembayaran extends CI_Controller {
         $data_kas = [
             'no_kas' => $no_kas,
             'nama_cek' => 'KAS',
-            'tgl' => date('d-M-Y',time()),
+            'tgl' =>  date("Y-m-d"),
             'saldo' => $kurang_saldo
         ];
 
@@ -134,7 +135,7 @@ class Surat_pembayaran extends CI_Controller {
             'no_surat' => $data_surat[0]['no_surat'],
             'nama_kas' => $data_surat[0]['pos_anggaran'],
             'kredit' => (int)$data_surat[0]['nominal'],
-            'date' => date('d-M-Y',time())
+            'date' =>  date("Y-m-d")
         ];
         $this->db->insert('laporan', $data_laporan);
 
@@ -195,7 +196,7 @@ class Surat_pembayaran extends CI_Controller {
             'nominal' => $nominal,
             'terbilang' => $terbilang,
             'uraian' => $uraian,
-            'date' => date('d-M-Y',time()),
+            'date' =>  date("Y-m-d"),
             'catatan' => $catatan
         ];
 

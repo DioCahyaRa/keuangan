@@ -183,7 +183,7 @@ class MyModel extends CI_Model {
     }
 
     public function count_debit(){
-        $date = date('d-M-Y',time());
+        $date = date('Y-m-d',time());
         $this->db->select_sum('nominal');
         $this->db->where('masuk_keluar','Masuk');
         $this->db->where('date',$date);
@@ -191,7 +191,7 @@ class MyModel extends CI_Model {
     }
 
     public function count_kredit(){
-        $date = date('d-M-Y',time());
+        $date = date('Y-m-d',time());
         $this->db->select_sum('nominal');
         $this->db->where('masuk_keluar','kredit');
         $this->db->where('date',$date);
@@ -206,6 +206,17 @@ class MyModel extends CI_Model {
 
     public function saldo_kas(){
         return $query = $this->db->query("SELECT saldo FROM tbl_kas ORDER BY id_kas DESC LIMIT 1");
+    }
+
+    // to pdf
+    public function to_pdf($start_date,$end_date){
+        $this->db->join('laporan','laporan.no_surat=tbl_surat.no_surat');
+        $this->db->from('tbl_surat');
+        $this->db->join('tbl_kas','tbl_kas.no_kas=laporan.no_kas');
+        $this->db->where('tbl_surat.status','APPROVED');
+        $this->db->where('tbl_surat.date >=', $start_date);
+        $this->db->where('tbl_surat.date <=', $end_date);
+        return $this->db->get()->result_array();
     }
 
 }

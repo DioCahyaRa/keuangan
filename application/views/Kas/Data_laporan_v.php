@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <a href="<?= base_url('Kas/Data_laporan/to_pdf_harian')?>"><div class="btn btn-success">Laporan Harian</div></a>
-                                        <div class="btn btn-info">Laporan Per Tanggal</div>
+                                        <div class="btn btn-info" data-toggle="modal" data-target="#exampleModal">Laporan Per Tanggal</div>
                                     </div>
                                     <div class="col-lg-4">
                                     </div>
@@ -111,5 +111,33 @@
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Export Data Laporan to PDF</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form action="<?= base_url('Kas/Data_laporan/pdf_perTanggal')?>" method="post">
+            <div class="modal-body">
+                    <h5>Dari Tanggal :</h5>
+                    <input type="date" name="start_date" class="btn btn-primary" required>
+
+                    <h5 class="mt-3">Sampai Tanggal :</h5>
+                    <input type="date" name="end_date" class="btn btn-primary" required>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger btn-oval"><i class="mdi mdi-file-pdf"> </i>To PDF</button>
+            </div>
+        </form>
+        </div>
+    </div>
     </div>
 

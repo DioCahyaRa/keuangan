@@ -5,6 +5,8 @@ class Data_Laporan extends CI_Controller {
     public function __construct(){
         parent:: __construct();
         $this->load->model('MyModel');
+        date_default_timezone_set('Asia/Jakarta'); // Defined City For Timezone
+        $this->load->library('pdf');
     }
 
     public function index(){
@@ -25,10 +27,12 @@ class Data_Laporan extends CI_Controller {
     }
 
     public function to_pdf_harian(){
-        $this->load->library('pdf');
-        $date = date('d-M-Y',time());
+        $date = date("Y-m-d");
         $data['date'] = $date;
         $data['data_laporan'] = $this->MyModel->laporan_harian($date)->result_array();
+        // var_dump($data['data_laporan']);die;
+
+        if ($data['data_laporan']) {
         $data['saldo'] = $data['data_laporan'][0]['saldo'];
 
         // count debit
@@ -47,5 +51,47 @@ class Data_Laporan extends CI_Controller {
         $html = $this->load->view('Kas/Pdf_laporan_harian', $data, true);
         $filename = 'report_'.time();
         $this->pdf->generate($html, $filename, true, 'A4', 'landscape');
+        }else{
+            redirect('Kas/Data_laporan/index');
+        }
+        
+    }
+
+    public function pdf_perTanggal(){
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+        $date = date("Y-m-d");
+        $data['date'] = [
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+            'date' => $date
+        ];
+
+        $data['data_laporan'] = $this->MyModel->to_pdf($start_date,$end_date);
+
+        if ($data['data_laporan']) {
+            $data['saldo'] = $data['data_laporan'][0]['saldo'];
+    
+            // count debit
+            $count_debit = $this->MyModel->count_debit()->result_array();
+            $hasil_debit = (int)$count_debit[0]['nominal'];
+            $data['debit'] = $hasil_debit;
+            
+    
+            // count kredit
+            $count_kredit = $this->MyModel->count_kredit()->result_array();
+            $hasil_kredit = (int)$count_kredit[0]['nominal'];
+            $data['kredit'] = $hasil_kredit;
+            
+            $saldo_akhir = $hasil_debit - $hasil_kredit;
+            $data['saldo_akhir'] = $saldo_akhir;
+    
+            $html = $this->load->view('Kas/Pdf_laporan', $data, true);
+            $filename = 'report_'.time();
+            $this->pdf->generate($html, $filename, true, 'A4', 'landscape');
+            }else{
+                redirect('Kas/Data_laporan/index');
+            }
+
     }
 }
