@@ -17,6 +17,7 @@
                 <th>No</th>
                 <th>No Bukti</th>
                 <th colspan="4">Keterangan</th>
+                <th>Tanggal</th>
                 <th>Debit</th>
                 <th>Kredit</th>
             </tr>
@@ -25,6 +26,7 @@
                 <td><?= $no++?></td>
                 <td><?= $datas['no_kas']?></td>
                 <td colspan="4"><?= $datas['uraian']?></td>
+                <td><?= $datas['tgl']?></td>
                 <td>
                     <?php if ($datas['masuk_keluar'] == 'Masuk'):?>
                         Rp. <?= number_format($datas['nominal']).",-";?>
@@ -45,7 +47,7 @@
         <table class="table text-center table-bordered" style="width:100%; font-size:15px;">
             <tr>
                 <th>Saldo Kas per Tanggal <?= $date['date']?> </th>
-                <th>Rp. <?= number_format($saldo).",-";?></th>
+                <th>Rp. <?= number_format($saldo_sebelumnya).",-";?></th>
                 <th>Rp. 0,-</th>
             </tr>
             <tr>

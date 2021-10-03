@@ -31,22 +31,32 @@ class Data_Laporan extends CI_Controller {
         $data['date'] = $date;
         $data['data_laporan'] = $this->MyModel->laporan_harian($date)->result_array();
         // var_dump($data['data_laporan']);die;
+        $saldo_sblm = $this->MyModel->laporan_saldo()->result_array();
+        var_dump($saldo_sblm);die;
+        if ($saldo_sblm) {
+            $data['saldo_sebelumnya'] = (int)$saldo_sblm[0]['saldo'];
+        }else{
+            $data['saldo_sebelumnya'] = 0;
+        }
 
         if ($data['data_laporan']) {
         $data['saldo'] = $data['data_laporan'][0]['saldo'];
+        
 
         // count debit
         $count_debit = $this->MyModel->count_debit()->result_array();
         $hasil_debit = (int)$count_debit[0]['nominal'];
         $data['debit'] = $hasil_debit;
+        
 
         // count kredit
         $count_kredit = $this->MyModel->count_kredit()->result_array();
         $hasil_kredit = (int)$count_kredit[0]['nominal'];
         $data['kredit'] = $hasil_kredit;
         
-        $saldo_akhir = $hasil_debit - $hasil_kredit;
+        $saldo_akhir = $data['saldo_sebelumnya'] + $hasil_debit - $hasil_kredit;
         $data['saldo_akhir'] = $saldo_akhir;
+        // var_dump($data['saldo_akhir']);die;
 
         $html = $this->load->view('Kas/Pdf_laporan_harian', $data, true);
         $filename = 'report_'.time();
@@ -67,6 +77,13 @@ class Data_Laporan extends CI_Controller {
             'date' => $date
         ];
 
+        $saldo_sblm = $this->MyModel->laporan_saldo()->result_array();
+        if ($saldo_sblm) {
+            $data['saldo_sebelumnya'] = (int)$saldo_sblm[0]['saldo'];
+        }else{
+            $data['saldo_sebelumnya'] = 0;
+        }
+
         $data['data_laporan'] = $this->MyModel->to_pdf($start_date,$end_date);
 
         if ($data['data_laporan']) {
@@ -83,7 +100,7 @@ class Data_Laporan extends CI_Controller {
             $hasil_kredit = (int)$count_kredit[0]['nominal'];
             $data['kredit'] = $hasil_kredit;
             
-            $saldo_akhir = $hasil_debit - $hasil_kredit;
+            $saldo_akhir = $data['saldo_sebelumnya'] + $hasil_debit - $hasil_kredit;
             $data['saldo_akhir'] = $saldo_akhir;
     
             $html = $this->load->view('Kas/Pdf_laporan', $data, true);

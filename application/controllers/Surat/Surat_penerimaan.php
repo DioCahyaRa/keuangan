@@ -102,6 +102,7 @@ class Surat_penerimaan extends CI_Controller {
 
         // insert to kas
         $get_kas = $this->MyModel->saldo_kas()->result_array();
+        $saldo_sblm = (int)$saldo['saldo'];
         if ($get_kas) {
             foreach($get_kas as $saldo){
                 $tambah_saldo = (int)$saldo['saldo'] + $nominal;
@@ -113,6 +114,7 @@ class Surat_penerimaan extends CI_Controller {
             'no_kas' => $no_kas,
             'nama_cek' => 'KAS',
             'tgl' =>  date("Y-m-d"),
+            'saldo_sebelumnya' => $saldo_sblm,
             'saldo' => $tambah_saldo
         ];
         $this->db->insert('tbl_kas', $data_kas);

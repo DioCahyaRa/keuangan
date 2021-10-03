@@ -183,19 +183,32 @@ class MyModel extends CI_Model {
     }
 
     public function count_debit(){
+        date_default_timezone_set('Asia/Jakarta'); // Defined City For Timezone
         $date = date('Y-m-d',time());
         $this->db->select_sum('nominal');
         $this->db->where('masuk_keluar','Masuk');
+        $this->db->where('status','APPROVED');
         $this->db->where('date',$date);
         return $this->db->get('tbl_surat');
     }
 
     public function count_kredit(){
+        date_default_timezone_set('Asia/Jakarta'); // Defined City For Timezone
         $date = date('Y-m-d',time());
         $this->db->select_sum('nominal');
-        $this->db->where('masuk_keluar','kredit');
+        $this->db->where('masuk_keluar','Keluar');
+        $this->db->where('status','APPROVED');
         $this->db->where('date',$date);
         return $this->db->get('tbl_surat');
+    }
+
+    public function laporan_saldo(){
+        date_default_timezone_set('Asia/Jakarta'); // Defined City For Timezone
+        $date = date('Y-m-d',time());
+        $this->db->select('saldo');
+        $this->db->where('tgl <',$date);
+        $this->db->limit(1);
+        return $this->db->get('tbl_kas');
     }
 
     // Kas
