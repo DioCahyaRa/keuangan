@@ -9,7 +9,9 @@ class Anggaran extends CI_Controller {
 
     public function index(){
         $data['user_ses'] = $this->db->get_where('user',['username'=>$this->session->userdata('username')])->row_array();
-        $data['title'] = 'Anggaran';
+        $name_class = $this->router->fetch_class();
+        $data['title'] = $name_class;
+        var_dump($data['title']);die;
         $data['anggaran'] = $this->db->get('anggaran')->result_array();
         $data['jns_transaksi'] = $this->MyModel->get_jns_trans();
         $data['pos'] = $this->db->get('tbl_pos')->result_array();

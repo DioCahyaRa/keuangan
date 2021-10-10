@@ -45,7 +45,7 @@
         <table class="table text-center table-bordered" style="width:100%; font-size:15px;">
             <tr>
                 <th>Saldo Kas per Tanggal <?= $date?> </th>
-                <th>Rp. <?= number_format($saldo).",-";?></th>
+                <th>Rp. <?= number_format($saldo_sebelumnya).",-";?></th>
                 <th>Rp. 0,-</th>
             </tr>
             <tr>
