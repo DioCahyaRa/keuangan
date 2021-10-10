@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Aug 28, 2021 at 03:07 AM
+-- Generation Time: Sep 26, 2021 at 01:16 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -35,8 +35,10 @@ CREATE TABLE `anggaran` (
 --
 
 INSERT INTO `anggaran` (`id`, `jns_trans`, `pos`, `anggaran`, `sisa_anggaran`, `tahun`, `status`) VALUES
-(3, 'Akademik', 'Pembayaran SPP', 20000000, 17800000, '2020', 'Ok'),
-(4, 'Luar Akademik', 'Listrik', 20000000, 10000000, '2021', 'Ok');
+(5, 'BIAYA AKADEMIK', 'Biaya Penelitian & Jurnal', 50000000, 45000000, '2021', 'Ok'),
+(6, 'BIAYA UMUM', 'Biaya Listrik', 30000000, 15000000, '2021', 'Ok'),
+(7, 'BIAYA AKADEMIK', 'Biaya Promosi', 10000000, 10000000, '2021', 'Ok'),
+(8, 'BIAYA PERSONIL', 'Pengembangan SDM', 9000000, -1000000, '2021', 'Ok');
 
 -- --------------------------------------------------------
 
@@ -56,7 +58,9 @@ CREATE TABLE `asal_dana` (
 --
 
 INSERT INTO `asal_dana` (`id`, `nama`, `alamat`, `no_telp`) VALUES
-(1, 'BSI Pondok Kelapa', 'Jakarta', 2160212);
+(2, 'BRI KC PONDOK KELAPA', 'Kalimalang, Jakarta', 346847),
+(3, 'BRI KCP SENTRA NIAGA', 'Ruko Kalimalang, Bekasi', 346847),
+(4, 'BSI PONDOK KELAPA', 'Kalimalang, Jakarta', 346847);
 
 -- --------------------------------------------------------
 
@@ -74,9 +78,12 @@ CREATE TABLE `jns_biaya` (
 --
 
 INSERT INTO `jns_biaya` (`id`, `jns_biaya`) VALUES
-(1, 'Dinas'),
-(2, 'Tugas Akhir'),
-(3, 'Sertifikasi');
+(4, 'DINAS'),
+(7, 'SERTIFIKASI'),
+(8, 'PMB'),
+(9, 'WISUDA'),
+(10, 'SEMESTER PENDEK'),
+(11, 'TUGAS AKHIR/SKRIPSI');
 
 -- --------------------------------------------------------
 
@@ -94,8 +101,14 @@ CREATE TABLE `jns_trans` (
 --
 
 INSERT INTO `jns_trans` (`id`, `jns_trans`) VALUES
-(1, 'Akademik'),
-(4, 'Luar Akademik');
+(5, 'BIAYA PERSONIL'),
+(6, 'BIAYA UMUM'),
+(7, 'BIAYA AKADEMIK'),
+(8, 'SERTIFIKASI'),
+(9, 'INVESTASI/YAYASAN'),
+(10, 'PMB'),
+(11, 'SEMESTER PENDEK'),
+(12, 'TUGAS/AKHIR');
 
 -- --------------------------------------------------------
 
@@ -110,7 +123,7 @@ CREATE TABLE `laporan` (
   `nama_kas` varchar(125) NOT NULL,
   `debit` int(11) NOT NULL,
   `kredit` int(11) NOT NULL,
-  `date` int(11) NOT NULL
+  `date` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -118,14 +131,8 @@ CREATE TABLE `laporan` (
 --
 
 INSERT INTO `laporan` (`id_laporan`, `no_kas`, `no_surat`, `nama_kas`, `debit`, `kredit`, `date`) VALUES
-(1, '020821/km/0001', '', 'Pembayaran SPP', 1000000, 0, 1627910474),
-(4, '020821/kk/0002', '', 'Pembayaran SPP', 0, 2000000, 1627910670),
-(5, '020821/km/0003', '', 'Pembayaran SAP', 1100000, 0, 1627912441),
-(6, '190821/kk/0001', '', 'Pembayaran SPP', 0, 200000, 1629358944),
-(7, '210821/kk/0001', '', 'Listrik', 0, 10000000, 1629516318),
-(8, '260821/kk/0001', '260821/0001', 'Pembayaran SAP', 0, 1000000, 1629986127),
-(9, '260821/kk/0002', '260821/0002', 'Pembayaran SAP', 0, 1000000, 1629986240),
-(10, '260821/kk/0003', '260821/0003', 'Pembayaran SPP', 0, 2000000, 1629986422);
+(20, '260921/km/0001', '260921/0001', 'DINAS', 100000000, 0, '2021-09-26'),
+(21, '260921/kk/0002', '260921/0002', 'Biaya Listrik', 0, 10000000, '2021-09-26');
 
 -- --------------------------------------------------------
 
@@ -152,6 +159,29 @@ INSERT INTO `role` (`id`, `nama_role`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_kas`
+--
+
+CREATE TABLE `tbl_kas` (
+  `id_kas` int(11) NOT NULL,
+  `no_kas` varchar(125) NOT NULL,
+  `nama_cek` varchar(125) NOT NULL,
+  `tgl` varchar(50) NOT NULL,
+  `saldo_sebelumnya` int(11) NOT NULL,
+  `saldo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tbl_kas`
+--
+
+INSERT INTO `tbl_kas` (`id_kas`, `no_kas`, `nama_cek`, `tgl`, `saldo_sebelumnya`, `saldo`) VALUES
+(13, '260921/km/0001', 'KAS', '2021-09-26', 0, 100000000),
+(14, '260921/kk/0002', 'KAS', '2021-09-26', 0, 90000000);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_kepada`
 --
 
@@ -166,9 +196,12 @@ CREATE TABLE `tbl_kepada` (
 --
 
 INSERT INTO `tbl_kepada` (`id`, `bagian`, `nama`) VALUES
-(1, 'WAKET 1', 'Marhakim'),
-(2, 'WAKET 2', 'Budi'),
-(3, 'Ketua', 'Taufik Maulana');
+(1, 'Wakil Ketua I', 'Budi, S.Kom., M.Kom.'),
+(2, 'Wakil Ketua II', 'Marhakim, S.Pd., M.M.'),
+(3, 'Ketua', 'Taufik Maulana, Drs., MBA.'),
+(4, 'Pihak Ke-3', 'PT Telekomunikasi '),
+(5, 'Pihak Ke-3', 'PLN'),
+(6, 'Pihak Ke-3', 'PT Excellent Indotama ');
 
 -- --------------------------------------------------------
 
@@ -187,10 +220,17 @@ CREATE TABLE `tbl_pos` (
 --
 
 INSERT INTO `tbl_pos` (`id`, `jns_trans`, `nama_pos`) VALUES
-(1, 'Akademik', 'Pembayaran SAP'),
-(3, 'Akademik', 'Pembayaran SPP'),
-(4, 'Luar Akademik', 'Listrik'),
-(5, 'Akademik', 'Gaji Dosen');
+(8, 'BIAYA UMUM', 'Biaya Listrik'),
+(9, 'BIAYA UMUM', 'Biaya Telepon/Internet'),
+(10, 'BIAYA AKADEMIK', 'Biaya Penelitian & Jurnal'),
+(11, 'BIAYA AKADEMIK', 'Biaya Promosi'),
+(12, 'BIAYA PERSONIL', 'Pengembangan SDM'),
+(13, 'BIAYA UMUM', 'ATK/Perlengkapan Kantor'),
+(14, 'BIAYA AKADEMIK', 'Pengabdian Masyarakat'),
+(15, 'BIAYA AKADEMIK', 'Pembinaan Kemahasiswaan'),
+(16, 'BIAYA AKADEMIK', 'Beasiswa S3,S2,S1'),
+(17, 'BIAYA AKADEMIK', 'HONOR DOSEN'),
+(18, 'BIAYA AKADEMIK', 'Biaya Akademik Lain');
 
 -- --------------------------------------------------------
 
@@ -210,7 +250,7 @@ CREATE TABLE `tbl_surat` (
   `nominal` int(11) NOT NULL,
   `terbilang` text NOT NULL,
   `uraian` text NOT NULL,
-  `date` int(11) NOT NULL,
+  `date` varchar(50) NOT NULL,
   `status` varchar(25) NOT NULL,
   `catatan` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -220,28 +260,8 @@ CREATE TABLE `tbl_surat` (
 --
 
 INSERT INTO `tbl_surat` (`id`, `no_surat`, `jns_biaya`, `masuk_keluar`, `kepada`, `asal_dana`, `pos_anggaran`, `cara_pembayaran`, `nominal`, `terbilang`, `uraian`, `date`, `status`, `catatan`) VALUES
-(22, '110721/0001', 'Dinas', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SPP', 'Tunai', 90000000, ' Sembilan Puluh Juta Rupiah', 'lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book', 1626005562, 'APPROVED', ''),
-(23, '110721/0002', 'Sertifikasi', 'Keluar', 'Budi', '', 'Pembayaran SAP', 'Tunai', 10000000, ' Sepuluh Juta Rupiah', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book', 1626007202, 'APPROVED', ''),
-(24, '200721/0001', 'Dinas', 'Keluar', 'Marhakim', '', 'Pembayaran SAP', 'Tunai', 200000, 'Dua Ratus Ribu Rupiah', 'tesfsfsdfsdfsdf', 1626783967, 'APPROVED', ''),
-(25, '200721/0002', 'Tugas Akhir', 'Keluar', 'Marhakim', '', 'Pembayaran SPP', 'Tunai', 10000000, ' Sepuluh Juta Rupiah', 'Tes Pembayaran', 1626785031, 'APPROVED', ''),
-(26, '200721/0003', 'Dinas', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SAP', 'Tunai', 100000, 'Seratus Ribu Rupiah', 'tes Penerimaan', 1626787175, 'CANCELED', ''),
-(27, '200721/0004', 'Dinas', 'Keluar', 'Marhakim', '', 'Listrik', 'Tunai', 5000000, ' Lima Juta Rupiah', 'tes pembayaran', 1626788660, 'APPROVED', ''),
-(28, '290721/0001', 'Dinas', 'Keluar', 'Budi', '', 'Pembayaran SAP', 'Tunai', 1000000, ' Satu Juta Rupiah', 'tes pembayaran', 1627545509, 'APPROVED', ''),
-(29, '290721/0002', 'Tugas Akhir', 'Keluar', 'Marhakim', '', 'Pembayaran SPP', 'Tunai', 300000, 'Tiga Ratus Ribu Rupiah', 'tess', 1627642930, 'APPROVED', 'perbaiki nominalnya Ok'),
-(30, '020821/0001', 'Dinas', 'Keluar', 'Budi', '', 'Listrik', 'Tunai', 2000000, ' Dua Juta Rupiah', 'keterangan', 1627888242, 'CANCELED', ''),
-(31, '020821/0002', 'Dinas', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SPP', 'Tunai', 1000000, ' Satu Juta Rupiah', 'tess', 1627909970, 'APPROVED', ''),
-(32, '020821/0003', 'Dinas', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SPP', 'Tunai', 1000000, ' Satu Juta Rupiah', 'tes', 1627910091, 'APPROVED', ''),
-(33, '020821/0004', 'Tugas Akhir', 'Keluar', 'Marhakim', '', 'Pembayaran SPP', 'Non Tunai', 2000000, ' Dua Juta Rupiah', 'tes', 1627910621, 'APPROVED', ''),
-(34, '020821/0005', 'Dinas', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SAP', 'Tunai', 10000000, ' Sepuluh Juta Rupiah', 'tes', 1627910913, 'CANCELED', ''),
-(35, '020821/0006', 'Dinas', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SAP', 'Tunai', 1000000, ' Satu Juta Rupiah', 'tas2', 1627911460, 'CANCELED', ''),
-(36, '020821/0007', 'Tugas Akhir', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SAP', 'Tunai', 1000000, ' Satu Juta Rupiah', 'tsss', 1627911551, 'CANCELED', ''),
-(37, '020821/0008', 'Dinas', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SAP', 'Tunai', 10000000, ' Sepuluh Juta Rupiah', '2', 1627911571, 'CANCELED', ''),
-(38, '020821/0009', 'Tugas Akhir', 'Masuk', '', 'BSI Pondok Kelapa', 'Pembayaran SAP', 'Tunai', 1100000, ' Satu Juta Seratus Ribu Rupiah', 'sdsa', 1627912392, 'APPROVED', 'kurang something Ok'),
-(39, '190821/0001', 'Dinas', 'Keluar', 'Marhakim', '', 'Pembayaran SPP', 'Tunai', 200000, 'Dua Ratus Ribu Rupiah', 'tes', 1629358683, 'APPROVED', ''),
-(40, '210821/0001', 'Dinas', 'Keluar', 'Marhakim', '', 'Listrik', 'Tunai', 10000000, 'sepuluh juta rupiah', 'tes', 1629516174, 'APPROVED', 'Nominal Salah Ok'),
-(41, '260821/0001', 'Dinas', 'Keluar', 'Marhakim', '', 'Pembayaran SAP', 'Tunai', 1000000, ' Satu Juta Rupiah', 'des', 1629985748, 'APPROVED', ''),
-(42, '260821/0002', 'Dinas', 'Keluar', 'Budi', '', 'Pembayaran SAP', 'Tunai', 1000000, ' Satu Juta Rupiah', 'keterangan', 1629986195, 'APPROVED', ''),
-(43, '260821/0003', 'Dinas', 'Keluar', 'Taufik Maulana', '', 'Pembayaran SPP', 'Tunai', 2000000, ' Dua Juta Rupiah', 'sds', 1629986377, 'APPROVED', '');
+(56, '260921/0001', 'DINAS', 'Masuk', '', 'BRI KC PONDOK KELAPA', '', 'Tunai', 100000000, 'Seratus Juta Rupiah', 'Kas', '2021-09-26', 'APPROVED', ''),
+(57, '260921/0002', 'SERTIFIKASI', 'Keluar', 'Marhakim, S.Pd., M.M.', '', 'Biaya Listrik', 'Tunai', 10000000, ' Sepuluh Juta Rupiah', 'Listrik', '2021-09-26', 'APPROVED', '');
 
 -- --------------------------------------------------------
 
@@ -309,6 +329,12 @@ ALTER TABLE `role`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_kas`
+--
+ALTER TABLE `tbl_kas`
+  ADD PRIMARY KEY (`id_kas`);
+
+--
 -- Indexes for table `tbl_kepada`
 --
 ALTER TABLE `tbl_kepada`
@@ -340,31 +366,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `anggaran`
 --
 ALTER TABLE `anggaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `asal_dana`
 --
 ALTER TABLE `asal_dana`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jns_biaya`
 --
 ALTER TABLE `jns_biaya`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `jns_trans`
 --
 ALTER TABLE `jns_trans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `laporan`
 --
 ALTER TABLE `laporan`
-  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_laporan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -373,22 +399,28 @@ ALTER TABLE `role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `tbl_kas`
+--
+ALTER TABLE `tbl_kas`
+  MODIFY `id_kas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `tbl_kepada`
 --
 ALTER TABLE `tbl_kepada`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_pos`
 --
 ALTER TABLE `tbl_pos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_surat`
 --
 ALTER TABLE `tbl_surat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `user`
